@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">JPFinder</string>
+    <string name="clarendon">Clarendon</string>
+    <string name="hanover">Hanover</string>
+    <string name="kingston">Kingston</string>
+    <string name="manchester">Manchester</string>
+    <string name="st_andrew">St Andrew</string>
+    <string name="st_ann">St Ann</string>
+    <string name="st_catherine">St Catherine</string>
+    <string name="st_elizabeth">St Elizabeth</string>
+    <string name="st_james">St James</string>
+    <string name="st_mary">St Mary</string>
+    <string name="trelawny">Trelawny</string>
+    <string name="westmoreland">Westmoreland</string>
+    <string name="portland">Portland</string>
+    <string name="st_thomas">St Thomas</string>
 </resources>

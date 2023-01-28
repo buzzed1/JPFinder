@@ -14,4 +14,6 @@
     <string name="westmoreland">Westmoreland</string>
     <string name="portland">Portland</string>
     <string name="st_thomas">St Thomas</string>
+    <string name="list_screen_title">List of JPs</string>
+    <string name="jp_details">JP Details</string>
 </resources>

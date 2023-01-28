@@ -12,13 +12,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.*
+import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
+
+
+object ListScreenDestination: NavigationDestination {
+    override val route = "list_screen"
+    override val titleRes = R.string.list_screen_title
+}
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ListScreen(
+    navigateBack: () -> Unit,
+    onNavigateUp: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -49,40 +59,37 @@ fun ListResults(
     results: String,
     modifier: Modifier = Modifier
 ) {
-    var firstname = results
-
-Column(
-    horizontalAlignment = Alignment.CenterHorizontally,
-    modifier = modifier.padding(16.dp)
-) {
-
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable {  },
-        elevation = CardDefaults.cardElevation(4.dp),
-        shape = RoundedCornerShape(5.dp)
-
+    var listItems: List<String> = listOf("Happy", "Sad", "Scared","Super", "Confident")
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = modifier.padding(16.dp)
     ) {
+            Card(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .clickable {  },
+                elevation = CardDefaults.cardElevation(4.dp),
+            ) {
 
-        Row(
-            modifier,
-            horizontalArrangement = Arrangement.SpaceEvenly,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = firstname)
+                Row(
+                    modifier,
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(text = results)
+
+                }
+
+            }
 
         }
 
-    }
-
-    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ListScreenPreview() {
     JPFinderTheme {
-        ListScreen()
+        ListScreen(navigateBack = {}, onNavigateUp = {})
     }
 }

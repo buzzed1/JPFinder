@@ -1,8 +1,6 @@
 package com.buzzed.jpfinder.ui.screen
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowForward
@@ -12,15 +10,18 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+
 import androidx.compose.ui.unit.dp
 import com.buzzed.jpfinder.R
-import com.buzzed.jpfinder.data.Parish
-import com.buzzed.jpfinder.data.Parishes
+import com.buzzed.jpfinder.data.ParisList
+
 import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 
@@ -38,8 +39,8 @@ object HomeDestination : NavigationDestination {
 fun HomeScreen(
     modifier: Modifier = Modifier,
 ) {
-    var parishTextValue by rememberSaveable { mutableStateOf("") }
-    var communityTextValue by rememberSaveable { mutableStateOf("") }
+    var parishTextValue by rememberSaveable { mutableStateOf("Parish") }
+    var communityTextValue by rememberSaveable { mutableStateOf("Community") }
 
 
     Column(
@@ -69,6 +70,7 @@ fun HomeScreenDetails(
     ) {
 
         var expanded by remember { mutableStateOf(false)}
+        val parishList1 = listOf<Int>(R.string.glendevon, R.string.norwood, R.string.paridise)
 
         val icon = if (expanded)
             Icons.Filled.ArrowForward //it requires androidx.compose.material:material-icons-extended
@@ -88,8 +90,9 @@ fun HomeScreenDetails(
                 Text(
                     text = "Please Enter Your Parish"
                 )
-                LocationListDropdown(Parishes(), parishTextValue, icon)
-                LocationListDropdown(listOf(), communityTextValue, icon)
+                LocationListDropdown(ParisList(), parishTextValue, icon)
+                Divider()
+                LocationListDropdown(parishList1, communityTextValue, icon)
 
                 Button(
                     modifier = Modifier,
@@ -108,58 +111,63 @@ fun HomeScreenDetails(
 
 @Composable
 fun LocationListDropdown(
-    listItems: List<Parish> ,
+    listItems: List<Int> ,
     locationText: String,
     icon: ImageVector,
     modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        modifier = modifier
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .wrapContentSize(Alignment.TopCenter)
-    ) {
-        Button(
-            onClick = { expanded = true },
-            modifier = Modifier.fillMaxWidth(),
-            enabled = true,
         ) {
 
-            Row(
-                horizontalArrangement = Arrangement.SpaceEvenly
+            Box( ) {
+
+            Button(
+                onClick = { expanded = true },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = true,
             ) {
-                Text(text = "Select Your Parish")
-                Icon(
-                    Icons.Default.ArrowDropDown,
-                    contentDescription = "Localized description",
-                    modifier = Modifier
-                )
+
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ) {
+                    Text(text = "Select Your ${locationText}")
+                    Icon(
+                        Icons.Default.ArrowDropDown,
+                        contentDescription = "Localized description",
+                        modifier = Modifier
+                    )
+                }
                 DropdownMenu(
                     expanded = expanded,
-                    onDismissRequest = { expanded = false }
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.width(IntrinsicSize.Max)
                 ) {
-                    LazyColumn {
-                        items(items = listItems) {
+                      for(item in listItems) {
 
-                            DropdownMenuItem(
-                                text = { Text(text = stringResource(it.name)) },
-                                onClick = { /* Handle edit! */ },
-                                leadingIcon = {
-                                    Icon(
-                                        Icons.Outlined.Edit,
-                                        contentDescription = null
-                                    )
-                                })
-
+                          DropdownMenuItem(
+                              text = { Text(text = stringResource(item)) },
+                              onClick = { /* Handle edit! */ },
+                              leadingIcon = {
+                                  Icon(
+                                      Icons.Outlined.Edit,
+                                      contentDescription = null
+                                  )
+                              })
+                      }
                         }
-                    }
+
 
                 }
-
             }
+
+
         }
-    }
+
+
 }
 
 
@@ -167,28 +175,6 @@ fun LocationListDropdown(
 
 
 
-
-
-@Composable
-fun ParishList(parishes: List<Parish>)  {
-    LazyColumn {
-        items(parishes) { parish ->
-            ParishRow(parish)
-        }
-    }
-}
-
-
-@Composable
-fun ParishRow(parish: Parish) {
-    Row {
-        Card {
-            Text(
-                text = stringResource(parish.name)
-            )
-        }
-    }
-}
 
 
 

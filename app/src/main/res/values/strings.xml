@@ -16,4 +16,7 @@
     <string name="st_thomas">St Thomas</string>
     <string name="list_screen_title">List of JPs</string>
     <string name="jp_details">JP Details</string>
+    <string name="glendevon">Glendevon</string>
+    <string name="paridise">Paradise</string>
+    <string name="norwood">Norwood</string>
 </resources>

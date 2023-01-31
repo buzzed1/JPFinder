@@ -13,6 +13,8 @@ interface JPRepository {
      */
     fun getJPStream(jp: JP): Flow<JP?>
 
+    fun getJpInCommunity(community: String): Flow<List<JP>>
+
     /**
      * Insert item in the data source
      */

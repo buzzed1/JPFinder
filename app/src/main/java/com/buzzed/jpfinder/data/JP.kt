@@ -10,15 +10,15 @@ data class JP(
      @PrimaryKey(autoGenerate = true)
      val id: Int,
      @ColumnInfo(name = "lastname")
-     val lastName: String,
+     val lastName: String?,
      @ColumnInfo(name = "firstname")
-     val firstName: String,
+     val firstName: String?,
      @ColumnInfo(name = "middlename")
-     val middleName: String,
+     val middleName: String?,
      @ColumnInfo(name = "address1")
-     val address1: String,
-     @ColumnInfo(name = "address2")
-     val address2: String,
+     val address1: String?,
+     @ColumnInfo(name = "community")
+     val community: String?,
      @ColumnInfo(name = "email")
-     val emailAddress: String,
+     val emailAddress: String?,
 )

@@ -2,7 +2,7 @@ package com.buzzed.jpfinder.data
 
 import com.buzzed.jpfinder.R
 
-fun ParisList(): List<Int> {
+fun ParishList(): List<Int> {
     val parishes = listOf(
         R.string.clarendon,
         R.string.hanover,

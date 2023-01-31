@@ -10,6 +10,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.buzzed.jpfinder.navigation.JPFinderNavHost
 import com.buzzed.jpfinder.ui.screen.HomeScreen
+import com.buzzed.jpfinder.ui.screen.HomeViewModel
+import com.buzzed.jpfinder.ui.screen.ListScreenDestination
 
 
 @Composable
@@ -29,7 +31,7 @@ fun JPFinderTopBar(
         topBar = {}
             ) { paddingValues ->
         Column(modifier = modifier.padding(paddingValues)) {
-            HomeScreen()
+
         }
 
     }

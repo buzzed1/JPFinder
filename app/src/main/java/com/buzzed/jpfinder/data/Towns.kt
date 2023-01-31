@@ -1,45 +1,13 @@
 package com.buzzed.jpfinder.data
 
-fun Towns(): List<Town> {
+import com.buzzed.jpfinder.R
+
+fun Towns(): List<Int> {
 
     val montegoBayList = listOf(
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-        Town(0),
-
+        R.string.glendevon,
+        R.string.norwood,
+        R.string.paridise,
 
     )
 

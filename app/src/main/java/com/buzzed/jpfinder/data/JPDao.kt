@@ -15,10 +15,13 @@ interface JPDao {
         @Delete
         suspend fun delete(jp: JP)
 
-        @Query("SELECT * from jp_list WHERE lastname = :lastName AND firstname = :firstName")
-        fun getJp(lastName: String, firstName: String): Flow<JP>
+        @Query("SELECT * from jp_list WHERE lastname = :lastName")
+        fun getJp(lastName: String?): Flow<JP>
 
         @Query("SELECT * from jp_list ORDER BY lastname ASC")
         fun getAllItems(): Flow<List<JP>>
+
+        @Query("SELECT * from jp_list WHERE community = :community")
+        fun getJpInCommunity(community: String): Flow<List<JP>>
 
 }

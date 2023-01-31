@@ -10,7 +10,7 @@ import com.buzzed.jpfinder.JPFinderApplication
 object AppViewModelProvider {
     val factory = viewModelFactory {
         initializer {
-            HomeViewModel()
+            HomeViewModel(JPFinderApplication().container.jpRepository)
         }
 
         initializer {

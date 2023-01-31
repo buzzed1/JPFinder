@@ -5,10 +5,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.buzzed.jpfinder.ui.screen.HomeDestination
-import com.buzzed.jpfinder.ui.screen.HomeScreen
-import com.buzzed.jpfinder.ui.screen.ListScreen
-import com.buzzed.jpfinder.ui.screen.ListScreenDestination
+import com.buzzed.jpfinder.JPFinderApplication
+import com.buzzed.jpfinder.ui.screen.*
 
 @Composable
 fun JPFinderNavHost(
@@ -22,7 +20,11 @@ fun JPFinderNavHost(
     )
     {
         composable(route = HomeDestination.route) {
-            HomeScreen()
+            HomeScreen(
+                navigateToListScreen = {
+                    navController.navigate(ListScreenDestination.route)
+                }
+            )
         }
         composable(route = ListScreenDestination.route) {
             ListScreen(

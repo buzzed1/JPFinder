@@ -20,11 +20,7 @@ fun JPFinderNavHost(
     )
     {
         composable(route = HomeDestination.route) {
-            HomeScreen(
-                navigateToListScreen = {
-                    navController.navigate(ListScreenDestination.route)
-                }
-            )
+            HomeScreen(modifier = modifier,navController)
         }
         composable(route = ListScreenDestination.route) {
             ListScreen(

@@ -20,6 +20,7 @@ class HomeViewModel(
 
     init {
         viewModelScope.launch {
+            val list =
            JPRepository.getAllJPStream()
         }
     }

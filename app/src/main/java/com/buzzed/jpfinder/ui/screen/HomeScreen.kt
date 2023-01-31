@@ -30,6 +30,8 @@ import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.lifecycle.viewmodel.viewModelFactory
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.buzzed.jpfinder.JPFinderApplication
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.JPRepository
@@ -54,7 +56,7 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    navigateToListScreen: () -> Unit,
+    navController: NavController,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
     var parishTextValue by rememberSaveable { mutableStateOf("Parish") }
@@ -68,7 +70,7 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-        HomeScreenDetails(parishTextValue, communityTextValue,viewModel, {navigateToListScreen()})
+        HomeScreenDetails(parishTextValue, communityTextValue,navController, viewModel)
 
     }
 }
@@ -79,14 +81,14 @@ fun HomeScreen(
 fun HomeScreenDetails(
     parishTextValue: String,
     communityTextValue: String,
+    navController: NavController,
     viewModel: HomeViewModel,
-    navigateToList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
         modifier = Modifier.padding(top = 50.dp, bottom = 50.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.surface)
     ) {
 
         var expanded by remember { mutableStateOf(false)}
@@ -110,7 +112,9 @@ fun HomeScreenDetails(
             ) {
 
                 Text(
-                    text = "Please Enter Your Parish"
+                    text = "Please Enter Your Parish",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    style = MaterialTheme.typography.headlineMedium
                 )
                 LocationListDropdown(parishList, parishTextValue, icon, viewModel)
                 Divider()
@@ -118,14 +122,17 @@ fun HomeScreenDetails(
 
                 Button(
                     modifier = Modifier,
+                    shape = MaterialTheme.shapes.medium,
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                     onClick = {
-                        navigateToList()
+                        navController.navigate(ListScreenDestination.route)
                               },
                     enabled = true
                 ) {
                     Text(
                         text = "Find JPs",
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             Text(text = "Parish: ${viewModel.getParish()}")
@@ -170,7 +177,8 @@ fun LocationListDropdown(
                     )
 
                 },
-                enabled = true
+                enabled = true,
+                textStyle = MaterialTheme.typography.titleSmall
 
             )
             DropdownMenu(
@@ -187,7 +195,8 @@ fun LocationListDropdown(
                             expanded = false
                             viewModel.enableCommunity()
                                   },
-                        enabled = true
+                        enabled = true,
+
                     )
 
                 }
@@ -254,7 +263,8 @@ fun HomeScreenPreview() {
     val parishText = "Parish"
     val communityText = "Community"
     val viewModel = HomeViewModel(JPFinderApplication().container.jpRepository)
+    val navController = rememberNavController()
     JPFinderTheme {
-        HomeScreenDetails(parishText, communityText, viewModel, {})
+        HomeScreenDetails(parishText, communityText, navController, viewModel)
     }
 }

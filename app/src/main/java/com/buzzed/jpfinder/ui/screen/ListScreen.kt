@@ -32,12 +32,12 @@ fun ListScreen(
     modifier: Modifier = Modifier,
 ) {
 
-    val itemList = listOf<String>("laptop", "coffee", "soup")
+    val itemList = listOf<String>("laptop", "coffee", "soup","Happy", "Sad", "Scared","Super", "Confident")
     Scaffold(
         topBar = {}
 
     ) {contentPadding ->
-
+        val viewModel =
         LazyColumn(
             modifier = modifier.padding(contentPadding),
             horizontalAlignment = Alignment.CenterHorizontally
@@ -59,7 +59,7 @@ fun ListResults(
     results: String,
     modifier: Modifier = Modifier
 ) {
-    var listItems: List<String> = listOf("Happy", "Sad", "Scared","Super", "Confident")
+    var listItems: List<String> = listOf()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier.padding(16.dp)

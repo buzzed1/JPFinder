@@ -1,6 +1,7 @@
 package com.buzzed.jpfinder.ui.screen
 
 import android.app.PendingIntent.getActivity
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -32,6 +33,8 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.buzzed.jpfinder.JPFinderApplication
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.JPRepository
+import com.buzzed.jpfinder.data.ParishList
+import com.buzzed.jpfinder.data.Towns
 
 
 import com.buzzed.jpfinder.navigation.NavigationDestination
@@ -87,7 +90,9 @@ fun HomeScreenDetails(
     ) {
 
         var expanded by remember { mutableStateOf(false)}
-        val parishList1 = listOf<Int>(R.string.glendevon, R.string.norwood, R.string.paridise)
+        val parishList = ParishList()
+        val communityList = Towns()
+        viewModel.updateLists(parishList, communityList)
 
         val icon = if (expanded)
             Icons.Filled.ArrowForward //it requires androidx.compose.material:material-icons-extended
@@ -107,23 +112,26 @@ fun HomeScreenDetails(
                 Text(
                     text = "Please Enter Your Parish"
                 )
-                LocationListDropdown(viewModel.parishList, parishTextValue, icon, viewModel)
+                LocationListDropdown(parishList, parishTextValue, icon, viewModel)
                 Divider()
-                LocationListDropdown(viewModel.communityList, communityTextValue, icon, viewModel)
+                LocationListDropdown(communityList, communityTextValue, icon, viewModel)
 
                 Button(
                     modifier = Modifier,
                     onClick = {
                         navigateToList()
-                        viewModel.getListOfJP(viewModel.selectedCommunity)
                               },
-                    enabled = viewModel.enabledButton
+                    enabled = true
                 ) {
                     Text(
                         text = "Find JPs",
                         fontWeight = FontWeight.Bold
                     )
                 }
+            Text(text = "Parish: ${viewModel.getParish()}")
+            Text(text = "Community: ${viewModel.getCommunity()}")
+            Text(text = "Community enabled: ${viewModel.getEnabledCommunity()} ")
+            Text(text = "Button Enabled: ${viewModel.getEnabledButton()}")
             }
         }
     }
@@ -148,8 +156,8 @@ fun LocationListDropdown(
         ) {
         if (locationText == "Parish") {
             OutlinedTextField(
-                value = viewModel.selectedParish,
-                onValueChange = { viewModel.selectParish(it)},
+                value = viewModel.getParish(),
+                onValueChange = { viewModel.selectParish(it) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .onGloballyPositioned { coordinates ->
@@ -162,6 +170,7 @@ fun LocationListDropdown(
                     )
 
                 },
+                enabled = true
 
             )
             DropdownMenu(
@@ -176,6 +185,7 @@ fun LocationListDropdown(
                         onClick = {
                             viewModel.selectParish(context.getString(label))
                             expanded = false
+                            viewModel.enableCommunity()
                                   },
                         enabled = true
                     )
@@ -186,7 +196,7 @@ fun LocationListDropdown(
             }
         } else {
             OutlinedTextField(
-                value = viewModel.selectedCommunity,
+                value = viewModel.getCommunity(),
                 onValueChange = { viewModel.selectCommunity(it) },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -199,7 +209,7 @@ fun LocationListDropdown(
                         modifier = Modifier.clickable { expanded = !expanded }
                     )
                 },
-                enabled = viewModel.enabledCommunity
+                enabled = true
 
             )
             DropdownMenu(
@@ -213,9 +223,10 @@ fun LocationListDropdown(
                         text = { Text(text = stringResource(label)) },
                         onClick = {
                             viewModel.selectCommunity(context.getString(label))
+                            viewModel.enableButton()
                             expanded = false
                                   },
-                        enabled = viewModel.enabledCommunity
+                        enabled = viewModel.getEnabledCommunity()
                     )
 
                 }

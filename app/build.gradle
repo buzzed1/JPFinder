@@ -73,6 +73,11 @@ dependencies {
     // To use Kotlin Symbol Processing (KSP)
     //ksp "androidx.room:room-compiler:$room_version"
 
+    // optional - Guava support for Room, including Optional and ListenableFuture
+    implementation "androidx.room:room-guava:$room_version"
+    // optional - RxJava2 support for Room
+
+
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
 

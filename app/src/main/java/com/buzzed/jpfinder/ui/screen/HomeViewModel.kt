@@ -16,14 +16,8 @@ class HomeViewModel(
 
     private var _uiState = MutableStateFlow(HomeUiState())
 
-    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
+    val uiState: StateFlow<HomeUiState> = _uiState
 
-    init {
-        viewModelScope.launch {
-            val list =
-           JPRepository.getAllJPStream()
-        }
-    }
 
     fun updateLists(pList: List<Int>, cList: List<Int> ) {
         _uiState.update {currentState ->
@@ -40,9 +34,9 @@ class HomeViewModel(
              _uiState.update { currentState ->
                  currentState.copy(
                  selectedParish = parish,
-                 enabledCommunity = true
                  )
              }
+            enableCommunity()
         }
 
 
@@ -52,16 +46,19 @@ class HomeViewModel(
         _uiState.update { currentState ->
             currentState.copy(
                 selectedCommunity = community,
-                enabledButton = true
+
             )
         }
+        enableButton()
     }
 
     fun getParish(): String {
+        Log.d("parish", "${_uiState.value.selectedParish}")
         return _uiState.value.selectedParish
     }
 
     fun getCommunity(): String {
+        Log.d("community", "${_uiState.value.selectedCommunity}")
         return _uiState.value.selectedCommunity
     }
 
@@ -90,14 +87,7 @@ class HomeViewModel(
         return _uiState.value.enabledButton
     }
 
-    fun filterCommunity(communityName: String) {
-        //To Do: filter community list based on parish //
-    }
 
-    fun getListOfJP(community: String) {
-
-
-    }
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

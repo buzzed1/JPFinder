@@ -32,7 +32,7 @@ navController: NavHostController = rememberNavController(),
         topBar = { JPFinderTopBar() }
     ) {
         Column(modifier = Modifier.padding(it)) {
-            HomeScreen(modifier = Modifier, navController )
+            HomeScreen( navController, {}, modifier = Modifier, )
 
         }
     }
@@ -50,7 +50,7 @@ fun JPFinderTopBar(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-        Text(text = stringResource(R.string.app_name), style = MaterialTheme.typography.headlineLarge,
+        Text(text = stringResource(R.string.app_name), style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.onBackground
 
             )

@@ -15,7 +15,7 @@ object AppViewModelProvider {
 
         initializer {
             ListScreenViewModel(
-                this.createSavedStateHandle()
+                JPFinderApplication().container.jpRepository
             )
         }
 

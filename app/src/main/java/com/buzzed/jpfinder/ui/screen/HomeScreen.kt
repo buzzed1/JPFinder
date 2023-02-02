@@ -8,11 +8,9 @@ import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -25,6 +23,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.buzzed.jpfinder.JPFinderApplication
+import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.ParishList
 import com.buzzed.jpfinder.data.Towns
@@ -40,19 +39,39 @@ object HomeDestination : NavigationDestination {
 }
 
 
-
-//@OptIn(ExperimentalMaterial3Api::class)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavController,
+    onNavigateToList: () -> Unit,
+    modifier: Modifier = Modifier,
+    navController: NavController = rememberNavController()
+) {
+    val screenName = HomeDestination.titleRes
+Scaffold(
+    topBar = {
+        JPFinderTopBar(
+            title = HomeDestination.titleRes,
+            canNavigateBack = false,
+    )
+    }
+) {
+    Column(modifier = modifier.padding(it)) {
+        HomeScreenBody(onNavigateToList = onNavigateToList)
+    }
+
+}
+
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun HomeScreenBody(
     onNavigateToList: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
+    val navController = rememberNavController( )
     val homeUiState by viewModel.uiState.collectAsState()
-    val parishTextValue by rememberSaveable { mutableStateOf("Parish") }
-    val communityTextValue by rememberSaveable { mutableStateOf("Community") }
     var expandedParishList by remember { mutableStateOf(false)}
     var expandedCommunityList by remember { mutableStateOf(false)}
     val parishList = ParishList()
@@ -177,7 +196,7 @@ fun HomeScreen(
                                 viewModel.enableButton()
                                 expandedCommunityList = false
                             },
-                            enabled = viewModel.getEnabledCommunity()
+                            enabled = homeUiState.enabledCommunity
                         )
 
                     }
@@ -185,16 +204,13 @@ fun HomeScreen(
 
                 }
 
-
-
                 Divider()
                 Button(
                     modifier = Modifier,
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                    onClick = {
-                        navController.navigate(ListScreenDestination.route)
-                    },
+                    onClick = onNavigateToList
+                    ,
                     enabled = homeUiState.enabledButton
                 ) {
                     Text(
@@ -206,7 +222,9 @@ fun HomeScreen(
             }
         }
 
-    Card(modifier = Modifier.height(150.dp).fillMaxWidth()) {
+    Card(modifier = Modifier
+        .height(150.dp)
+        .fillMaxWidth()) {
     Column(
         horizontalAlignment = Alignment.Start,
         modifier = Modifier.padding(16.dp)
@@ -240,11 +258,8 @@ fun HomeScreen(
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview() {
-    val parishText = "Parish"
-    val communityText = "Community"
-    val viewModel = HomeViewModel(JPFinderApplication().container.jpRepository)
-    val navController = rememberNavController()
+
     JPFinderTheme {
-        HomeScreen(navController, { } , modifier = Modifier, viewModel)
+        HomeScreen( { } )
     }
 }

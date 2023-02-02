@@ -17,6 +17,8 @@ data class JP(
      val middleName: String?,
      @ColumnInfo(name = "address1")
      val address1: String?,
+     @ColumnInfo(name = "address2")
+     val address2: String?,
      @ColumnInfo(name = "community")
      val community: String?,
      @ColumnInfo(name = "email")

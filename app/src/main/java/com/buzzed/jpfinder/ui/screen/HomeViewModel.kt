@@ -11,8 +11,16 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val JPRepository: JPRepository
+    private val jpRepository: JPRepository
     ) : ViewModel() {
+
+    init {
+        val jp = JP(0, "Stephen", "Smith", "George", "804 Salem Path", "Westgreen","Westgreen","smitstephen@gmail.com")
+        viewModelScope.launch {
+            jpRepository.insertJP(jp)
+        }
+    }
+
 
     private var _uiState = MutableStateFlow(HomeUiState())
 

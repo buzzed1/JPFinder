@@ -8,6 +8,7 @@ data class JPUiState(
     val firstName: String? = "",
     val middleName: String? = "",
     val address1: String? = "",
+    val address2: String? = "",
     val community: String? = "",
     val email: String? = "",
     val fullName: String? = "$lastName , $firstName $middleName",
@@ -20,6 +21,7 @@ fun JPUiState.toJP(): JP = JP(
     firstName = firstName,
     middleName = middleName,
     address1 = address1,
+    address2 = address2,
     community = community,
     emailAddress = email
 )
@@ -30,6 +32,7 @@ fun JP.toJPUiState(actionEnabled: Boolean = false): JPUiState = JPUiState(
     firstName = firstName,
     middleName = middleName,
     address1 = address1,
+    address2 = address2,
     community = community,
     email = emailAddress,
 )

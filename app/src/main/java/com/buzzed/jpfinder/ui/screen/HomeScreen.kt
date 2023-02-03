@@ -1,6 +1,7 @@
 package com.buzzed.jpfinder.ui.screen
 
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -46,17 +47,17 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController = rememberNavController()
 ) {
-    val screenName = HomeDestination.titleRes
+    val screenName = R.string.app_name
 Scaffold(
     topBar = {
         JPFinderTopBar(
-            title = HomeDestination.titleRes,
+            title = R.string.app_name, //HomeDestination.titleRes,
             canNavigateBack = false,
     )
     }
 ) {
     Column(modifier = modifier.padding(it)) {
-        HomeScreenBody(onNavigateToList = onNavigateToList)
+        HomeScreenBody(onNavigateToList = onNavigateToList, navController = navController)
     }
 
 }
@@ -66,12 +67,14 @@ Scaffold(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenBody(
+    navController: NavController,
     onNavigateToList: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory),
+    listviewModel: ListScreenViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
-    val navController = rememberNavController( )
     val homeUiState by viewModel.uiState.collectAsState()
+    val listUiState by listviewModel.uiState.collectAsState()
     var expandedParishList by remember { mutableStateOf(false)}
     var expandedCommunityList by remember { mutableStateOf(false)}
     val parishList = ParishList()
@@ -79,6 +82,7 @@ fun HomeScreenBody(
     viewModel.updateLists(parishList, communityList)
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
     val context = LocalContext.current
+
 
 
     val parishIcon = if (expandedParishList)
@@ -209,7 +213,14 @@ fun HomeScreenBody(
                     modifier = Modifier,
                     shape = MaterialTheme.shapes.medium,
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                    onClick = onNavigateToList
+                    onClick = {
+                        ListScreenDestination.communityArg = homeUiState.selectedCommunity
+                        onNavigateToList()
+
+                    }
+
+
+
                     ,
                     enabled = homeUiState.enabledButton
                 ) {

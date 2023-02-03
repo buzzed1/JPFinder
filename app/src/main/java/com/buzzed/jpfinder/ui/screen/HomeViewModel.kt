@@ -14,19 +14,16 @@ class HomeViewModel(
     private val jpRepository: JPRepository
     ) : ViewModel() {
 
-    init {
-        val jp = JP(0, "Stephen", "Smith", "George", "804 Salem Path", "Westgreen","Westgreen","smitstephen@gmail.com")
-        viewModelScope.launch {
-            jpRepository.insertJP(jp)
-        }
-    }
-
 
     private var _uiState = MutableStateFlow(HomeUiState())
 
     val uiState: StateFlow<HomeUiState> = _uiState
-
-
+    val jp = JP(0, "Jones","George","","","","Westgreen","")
+init {
+    viewModelScope.launch {
+        jpRepository.updateJP(jp)
+    }
+}
     fun updateLists(pList: List<Int>, cList: List<Int> ) {
         _uiState.update {currentState ->
         currentState.copy(
@@ -103,7 +100,6 @@ class HomeViewModel(
 }
 
 data class HomeUiState(
-    val jpList: List<JP> = listOf(),
     val parishList: List<Int> = listOf(),
     val communityList: List<Int> = listOf(),
     val selectedParish: String = "",

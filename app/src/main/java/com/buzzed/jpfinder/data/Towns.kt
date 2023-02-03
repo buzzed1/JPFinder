@@ -8,6 +8,7 @@ fun Towns(): List<Int> {
         R.string.glendevon,
         R.string.norwood,
         R.string.paridise,
+        R.string.westgreen
 
     )
 

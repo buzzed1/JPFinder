@@ -34,20 +34,32 @@ fun JPFinderNavHost(
             val context = LocalContext.current
             HomeScreen(
                 onNavigateToList = {
-                    navController.navigate("${ListScreenDestination.route}?community={${communityArg}}")
+                    navController.navigate(ListScreenDestination.routeWithArgs)
                 })
         }
         composable(
-            route = "${ListScreenDestination.route}?community={${communityArg}}",
+            route = ListScreenDestination.routeWithArgs,
             arguments = ListScreenDestination.arguments,
             //deepLinks = listOf(navDeepLink {uriPattern= "uri=android-app://androidx.navigation/list_screen?communityArg={${communityArg}}"})
         ){
             Log.d("ListScreen","$communityArg     ${it.arguments?.getString("community")}")
             ListScreen(
                 communityName = communityArg,
+                onDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
                 onNavigateBack = { navController.popBackStack() })
         }
 
+        composable(
+            route = DetailsScreenDestination.route,
+            //arguments = ListScreenDestination.arguments,
+            //deepLinks = listOf(navDeepLink {uriPattern= "uri=android-app://androidx.navigation/list_screen?communityArg={${communityArg}}"})
+        ){
+            //Log.d("ListScreen","$communityArg     ${it.arguments?.getString("community")}")
+            DetailsScreen(
+                onNavigateUp = { navController.popBackStack() },
+                id = DetailsScreenDestination.jpId
+            )
+        }
 
 
 

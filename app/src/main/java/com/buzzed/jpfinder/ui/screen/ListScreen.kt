@@ -55,6 +55,7 @@ object ListScreenDestination: NavigationDestination {
 fun ListScreen(
     communityName: String?,
     onNavigateBack: () -> Unit,
+    onDetailsClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     navController: NavController? = rememberNavController(),
     listViewModel: ListScreenViewModel = viewModel(factory = AppViewModelProvider.factory),
@@ -64,8 +65,10 @@ fun ListScreen(
 
     val listUiState by listViewModel.uiState.collectAsState()
     val jp = JP(0, "Jones","George","","","","Westgreen","")
+    val jp2 = JP(1,"Smith", "Stephen", "George","Someplace","Sometown","Westgreen","smitstephen@someemail.com")
     var itemList = mutableListOf<JP>()   //listOf<String>("Super Man", "Super Duper", "John Jones")//
     itemList.add(jp)
+    itemList.add(jp2)
     Log.d("JP", "${itemList.toString()}")
     val context = LocalContext.current
     Toast.makeText(context,"Community Name = $communityName", Toast.LENGTH_LONG).show()
@@ -95,7 +98,7 @@ fun ListScreen(
 
             ) {
                 items(itemList) { item ->
-                    ListResults(item, communityName)
+                    ListResults(item, communityName,onDetailsClick)
 
                 }
 
@@ -110,6 +113,7 @@ fun ListScreen(
 fun ListResults(
     results: JP,
     communityName: String?,
+    detailsClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -127,7 +131,9 @@ fun ListResults(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
-                    .clickable { }
+                    .clickable {
+                        DetailsScreenDestination.jpId = results.id
+                        detailsClick(DetailsScreenDestination.jpId) }
                     .height(50.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
                 colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.surface)
@@ -162,6 +168,6 @@ showSystemUi = true)
 @Composable
 fun ListScreenPreview() {
     JPFinderTheme {
-        ListScreen("",onNavigateBack = {})
+        ListScreen("",onNavigateBack = {},{})
     }
 }

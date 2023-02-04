@@ -11,7 +11,7 @@ interface JPRepository {
     /**
      * Retrieve an item from the given data source that matches with the [id].
      */
-    fun getJPStream(jp: JP): Flow<JP?>
+    fun getJPStream(id: Int): Flow<JP?>
 
     fun getJpInCommunity(community: String): Flow<List<JP>>
 

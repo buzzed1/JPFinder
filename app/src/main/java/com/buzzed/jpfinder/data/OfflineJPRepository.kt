@@ -6,7 +6,7 @@ class OfflineJPRepository(private val jpDao: JPDao) : JPRepository {
 
     override fun getAllJPStream(): Flow<List<JP>> = jpDao.getAllItems()
 
-    override fun getJPStream(jp: JP): Flow<JP?> = jpDao.getJp(jp.lastName)
+    override fun getJPStream(id: Int): Flow<JP?> = jpDao.getJp(id)
 
     override suspend fun insertJP(jp: JP) = jpDao.insert(jp)
 

@@ -55,7 +55,7 @@ fun JPFinderTopBar(
                     )
                 }
             },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surface)
+            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
         )
 
 
@@ -79,7 +79,7 @@ fun JPFinderTopBar(
 @Preview
 @Composable
 fun JPFinderThemePreview() {
-    JPFinderTheme(darkTheme = false) {
+    JPFinderTheme(useDarkTheme = false) {
         JPFinderTopBar(R.string.app_name,false, {})
     }
 }
@@ -87,7 +87,7 @@ fun JPFinderThemePreview() {
 @Preview
 @Composable
 fun JPFinderDarkThemePreview() {
-    JPFinderTheme(darkTheme = true) {
+    JPFinderTheme(useDarkTheme = true) {
         JPFinderTopBar(R.string.app_name,true, {})
     }
 }

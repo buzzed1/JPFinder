@@ -104,7 +104,10 @@ fun HomeScreenBody(
         verticalArrangement = Arrangement.spacedBy(20.dp)
 
         ) {
-        Card(modifier = modifier.height(400.dp)) {
+        Card(
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.secondary),
+            modifier = modifier.height(400.dp)) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,

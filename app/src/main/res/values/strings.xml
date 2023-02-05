@@ -21,4 +21,17 @@
     <string name="norwood">Norwood</string>
     <string name="back_botton">Back Button</string>
     <string name="westgreen">Westgreen</string>
+    <string name="iron_shore">Ironshore</string>
+    <string name="irwin">Irwin</string>
+    <string name="lethe">Lethe</string>
+    <string name="coral_gardens">Coral Gardens</string>
+    <string name="bogue_village">Bogue Village</string>
+    <string name="goodwill">GoodWill</string>
+    <string name="gloucester_ave">Gloucester Ave</string>
+    <string name="mt_horeb">Mt Horeb</string>
+    <string name="westgate">Westgate Hills</string>
+    <string name="bogue_heights">Bogue Heights</string>
+    <string name="mango_walk">Mango Walk</string>
+    <string name="springfield">Springfield</string>
+    <string name="cambridge">Cambridge</string>
 </resources>

@@ -24,7 +24,7 @@ init {
         jpRepository.updateJP(jp)
     }
 }
-    fun updateLists(pList: List<Int>, cList: List<Int> ) {
+    fun updateLists(pList: List<Int>, cList: Set<Int> ) {
         _uiState.update {currentState ->
         currentState.copy(
             parishList = pList,
@@ -101,7 +101,7 @@ init {
 
 data class HomeUiState(
     val parishList: List<Int> = listOf(),
-    val communityList: List<Int> = listOf(),
+    val communityList: Set<Int> = setOf(),
     val selectedParish: String = "",
     val selectedCommunity: String = "",
     val enabledCommunity: Boolean = false,

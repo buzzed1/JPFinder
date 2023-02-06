@@ -42,7 +42,6 @@ fun JPFinderNavHost(
             arguments = ListScreenDestination.arguments,
             //deepLinks = listOf(navDeepLink {uriPattern= "uri=android-app://androidx.navigation/list_screen?communityArg={${communityArg}}"})
         ){
-            Log.d("ListScreen","$communityArg     ${it.arguments?.getString("community")}")
             ListScreen(
                 communityName = communityArg,
                 onDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
@@ -57,7 +56,7 @@ fun JPFinderNavHost(
             //Log.d("ListScreen","$communityArg     ${it.arguments?.getString("community")}")
             DetailsScreen(
                 onNavigateUp = { navController.popBackStack() },
-                id = DetailsScreenDestination.jpId
+                id = DetailsScreenDestination.jpId,
             )
         }
 

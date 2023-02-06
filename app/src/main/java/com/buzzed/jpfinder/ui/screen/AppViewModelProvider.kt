@@ -20,7 +20,8 @@ object AppViewModelProvider {
         }
 
         initializer {
-            DetailsScreenViewModel(this.createSavedStateHandle())
+            DetailsScreenViewModel(this.createSavedStateHandle(),
+                JPFinderApplication().container.jpRepository)
         }
 
     }

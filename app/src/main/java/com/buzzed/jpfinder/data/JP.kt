@@ -1,5 +1,7 @@
 package com.buzzed.jpfinder.data
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.annotation.StringRes
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -24,3 +26,4 @@ data class JP(
      @ColumnInfo(name = "email")
      val emailAddress: String?,
 )
+

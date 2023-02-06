@@ -37,8 +37,10 @@ fun JPFinderTopBar(
     navigateUp: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
+
+
     if(canNavigateBack){
-        TopAppBar(
+        CenterAlignedTopAppBar(
             title = {
                 Text(
                     stringResource(title),
@@ -60,7 +62,7 @@ fun JPFinderTopBar(
 
 
     } else {
-        TopAppBar (
+        CenterAlignedTopAppBar (
             title = {
                 Text(
                     stringResource(title),

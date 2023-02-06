@@ -1,24 +1,17 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.util.Log
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -31,7 +24,6 @@ import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.*
 import com.buzzed.jpfinder.navigation.NavigationDestination
-import com.buzzed.jpfinder.ui.screen.AppViewModelProvider.factory
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 
 
@@ -63,13 +55,10 @@ fun ListScreen(
 
 ) {
 
-    val listUiState by listViewModel.uiState.collectAsState()
+    val listUiState by listViewModel.listUiState.collectAsState()
     val jp = JP(0, "Jones","George","","","","Westgreen","")
     val jp2 = JP(1,"Smith", "Stephen", "George","Someplace","Sometown","Westgreen","smitstephen@someemail.com")
-    var itemList = mutableListOf<JP>()   //listOf<String>("Super Man", "Super Duper", "John Jones")//
-    itemList.add(jp)
-    itemList.add(jp2)
-    Log.d("JP", "${itemList.toString()}")
+    var itemList = listUiState.jpList   //listOf<String>("Super Man", "Super Duper", "John Jones")//
     val context = LocalContext.current
     Toast.makeText(context,"Community Name = $communityName", Toast.LENGTH_LONG).show()
     Scaffold(
@@ -98,7 +87,11 @@ fun ListScreen(
 
             ) {
                 items(itemList) { item ->
-                    ListResults(item, communityName,onDetailsClick)
+                    if(item.community == communityName) {
+                        ListResults(item, onDetailsClick)
+                    }else {
+                        ListResults(null, onDetailsClick)
+                    }
 
                 }
 
@@ -111,8 +104,7 @@ fun ListScreen(
 
 @Composable
 fun ListResults(
-    results: JP,
-    communityName: String?,
+    results: JP?,
     detailsClick: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -132,8 +124,14 @@ fun ListResults(
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
                     .clickable {
-                        DetailsScreenDestination.jpId = results.id
-                        detailsClick(DetailsScreenDestination.jpId) }
+                        if (results != null) {
+                            DetailsScreenDestination.jpId = results.id
+                            detailsClick(DetailsScreenDestination.jpId)
+                        } else {
+
+                        }
+
+                    }
                     .height(50.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
                 colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.surface)
@@ -147,7 +145,7 @@ fun ListResults(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                         Text(
-                            text = "${results.lastName}, ${results.firstName}",
+                            text = "${results?.lastName}, ${results?.firstName}",
                             color = MaterialTheme.colorScheme.onSurface,
                             fontSize = 20.sp,
 

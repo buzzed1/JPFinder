@@ -20,7 +20,7 @@ class ListScreenViewModel(
 
 
     //consume the stateflow and change it to a list
-    private val listUiState: StateFlow<ListUiState> = jpRepository.getAllJPStream().map {ListUiState(it)}
+    val listUiState: StateFlow<ListUiState> = jpRepository.getAllJPStream().map {ListUiState(it)}
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLI),
@@ -44,13 +44,13 @@ class ListScreenViewModel(
 
     }
 
-    fun setCommunity(community: String) {
-        _uiState.update {
-            it.copy(
-                communityName = community
-            )
-        }
-    }
+//    fun setCommunity(community: String) {
+//        _uiState.update {
+//            it.copy(
+//                communityName = community
+//            )
+//        }
+//    }
 
     companion object {
         private const val TIMEOUT_MILLI = 5_000L
@@ -59,5 +59,4 @@ class ListScreenViewModel(
 
 data class ListUiState(
     val jpList: List<JP> = listOf(),
-    val communityName: String = ""
 )

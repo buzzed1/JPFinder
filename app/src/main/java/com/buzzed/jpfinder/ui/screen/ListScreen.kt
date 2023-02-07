@@ -55,7 +55,7 @@ fun ListScreen(
     val listUiState by listViewModel.listUiState.collectAsState()
     val itemList = listUiState.jpList
     val context = LocalContext.current
-    Toast.makeText(context,"Community Name = $communityName", Toast.LENGTH_LONG).show()
+
     Scaffold(
         topBar = {
             JPFinderTopBar(

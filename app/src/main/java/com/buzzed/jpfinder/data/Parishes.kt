@@ -21,5 +21,5 @@ fun parishList(): List<Int> {
     )
 
 
-    return parishes
+    return parishes.sortedBy { it }
 }

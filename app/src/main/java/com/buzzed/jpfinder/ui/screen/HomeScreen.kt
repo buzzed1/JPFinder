@@ -104,9 +104,12 @@ fun HomeScreenBody(
 
         ) {
         Card(
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.secondary),
-            modifier = modifier.height(400.dp)) {
+            colors = CardDefaults.cardColors(
+                containerColor = MaterialTheme.colorScheme.surface,
+                contentColor = MaterialTheme.colorScheme.secondary
+            ),
+            modifier = modifier.height(400.dp)
+        ) {
             Column(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
@@ -219,11 +222,7 @@ fun HomeScreenBody(
                         ListScreenDestination.communityArg = homeUiState.selectedCommunity
                         onNavigateToList()
 
-                    }
-
-
-
-                    ,
+                    },
                     enabled = homeUiState.enabledButton
                 ) {
                     Text(
@@ -235,22 +234,6 @@ fun HomeScreenBody(
             }
         }
 
-    Card(modifier = Modifier
-        .height(150.dp)
-        .fillMaxWidth()) {
-    Column(
-        horizontalAlignment = Alignment.Start,
-        modifier = Modifier.padding(16.dp)
-
-    ) {
-
-
-        Text(text = "Parish: ${viewModel.getParish()}")
-        Text(text = "Community: ${viewModel.getCommunity()}")
-        Text(text = "Community enabled: ${viewModel.getEnabledCommunity()} ")
-        Text(text = "Button Enabled: ${viewModel.getEnabledButton()}")
-    }
-    }
     }
 }
 

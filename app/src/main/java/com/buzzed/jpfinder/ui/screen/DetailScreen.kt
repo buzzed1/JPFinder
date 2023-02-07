@@ -1,27 +1,20 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.content.Intent
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
-import com.buzzed.jpfinder.data.JP
-import com.buzzed.jpfinder.data.JPRepository
-import com.buzzed.jpfinder.data.OfflineJPRepository
 import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
-import kotlinx.coroutines.flow.StateFlow
 
 object DetailsScreenDestination: NavigationDestination {
     override val route = "details_screen"
@@ -41,7 +34,8 @@ fun DetailsScreen(
 
 
 ){
-     val uiState = viewModel.DetailUiState.collectAsState()
+     val uiState = viewModel.detailUiState.collectAsState()
+
 
 
     Scaffold(
@@ -73,13 +67,13 @@ fun DetailsScreen(
                         modifier = Modifier.padding(all = 16.dp)
                         //verticalArrangement = Arrangement.Center
                     ) {
-                       val jp = uiState.value.jp
+                       val jp = viewModel.getFilteredJP(id)
                         if(jp?.id == id){
-                            Log.d("JP check", "$jp.size: ${jp.toString()}")
+                            Log.d("JP check", "$jp.size: $jp")
                         } else {
-                            Log.d("JP check", "This did not work")
+                            Log.d("JP check", "ID does not match: $jp")
                         }
-                        Log.d("DetailsScreenJP", "$jp.size: ${jp.toString()}")
+
                             Column() {
                                 Text(
                                     "FirstName:",

@@ -14,10 +14,8 @@ class DetailsScreenViewModel(
 ) : ViewModel() {
 
 
-   private val jpId: Int = checkNotNull(savedStateHandle[DetailsScreenDestination.jpId.toString()])
-
-    val DetailUiState: StateFlow<DetailUiState> = jpRepository.getJPStream(jpId).map {
-        DetailUiState(jp = it)}
+    val detailUiState: StateFlow<DetailUiState> = jpRepository.getAllJPStream().map {
+        DetailUiState(it)}
         .filterNotNull()
         .stateIn(
             scope = viewModelScope,
@@ -27,9 +25,18 @@ class DetailsScreenViewModel(
 
 
 
-    fun getFilteredJP() {
-        Log.d("jpId", "$DetailUiState.value.jp")
-        DetailUiState.value.jp
+    fun getFilteredJP(id: Int): JP? {
+        val rJp = JP(0,"","","","","","","")
+       val returnedJp = detailUiState.value.jpFiltered.filter {jp ->
+            jp?.id == (id ?: 0)
+
+        }
+        Log.d("jpId", "$returnedJp.first()")
+        return if(returnedJp.isEmpty()){
+            rJp
+        } else {
+            returnedJp.first()
+        }
     }
 
     fun filterJP(): JP {
@@ -45,5 +52,5 @@ class DetailsScreenViewModel(
 }
 
 data class DetailUiState(
-    val jp: JP? = null,
+    val jpFiltered: List<JP?> = listOf()
 )

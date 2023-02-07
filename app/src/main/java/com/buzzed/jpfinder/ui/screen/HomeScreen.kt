@@ -78,7 +78,7 @@ fun HomeScreenBody(
     var expandedParishList by remember { mutableStateOf(false)}
     var expandedCommunityList by remember { mutableStateOf(false)}
     val parishList = ParishList()
-    val communityList = Towns()
+    val communityList = Towns(homeUiState.selectedParish)
     viewModel.updateLists(parishList, communityList)
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
     val context = LocalContext.current

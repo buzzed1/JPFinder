@@ -1,13 +1,12 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.util.Log
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.buzzed.jpfinder.data.*
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.*
+import com.buzzed.jpfinder.data.JP
+import com.buzzed.jpfinder.data.JPRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
@@ -21,7 +20,7 @@ class HomeViewModel(
     val jp = JP(0, "Jones","George","","","","Westgreen","")
 init {
     viewModelScope.launch {
-        jpRepository.updateJP(jp)
+        //jpRepository.updateJP(jp)
     }
 }
     fun updateLists(pList: List<Int>, cList: Set<Int> ) {
@@ -58,12 +57,10 @@ init {
     }
 
     fun getParish(): String {
-        Log.d("parish", "${_uiState.value.selectedParish}")
         return _uiState.value.selectedParish
     }
 
     fun getCommunity(): String {
-        Log.d("community", "${_uiState.value.selectedCommunity}")
         return _uiState.value.selectedCommunity
     }
 
@@ -88,7 +85,6 @@ init {
     }
 
     fun getEnabledButton(): Boolean {
-        Log.d("Enable Button", "${_uiState.value.enabledButton}")
         return _uiState.value.enabledButton
     }
 

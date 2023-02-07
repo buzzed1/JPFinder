@@ -16,9 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavType
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
@@ -49,16 +47,13 @@ fun ListScreen(
     onNavigateBack: () -> Unit,
     onDetailsClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    navController: NavController? = rememberNavController(),
     listViewModel: ListScreenViewModel = viewModel(factory = AppViewModelProvider.factory),
 
 
 ) {
 
     val listUiState by listViewModel.listUiState.collectAsState()
-    val jp = JP(0, "Jones","George","","","","Westgreen","")
-    val jp2 = JP(1,"Smith", "Stephen", "George","Someplace","Sometown","Westgreen","smitstephen@someemail.com")
-    var itemList = listUiState.jpList   //listOf<String>("Super Man", "Super Duper", "John Jones")//
+    val itemList = listUiState.jpList
     val context = LocalContext.current
     Toast.makeText(context,"Community Name = $communityName", Toast.LENGTH_LONG).show()
     Scaffold(
@@ -73,13 +68,6 @@ fun ListScreen(
         containerColor = MaterialTheme.colorScheme.surface
 
     ) { contentPadding ->
-        /*Column(modifier = modifier.padding(contentPadding)) {
-            if(communityName == null) {
-                Text(text = "Nothing Came")
-
-            }else {
-                Text(text = communityName)
-            }*/
 
         LazyColumn(
                 modifier = modifier.padding(contentPadding),
@@ -89,8 +77,6 @@ fun ListScreen(
                 items(itemList) { item ->
                     if(item.community == communityName) {
                         ListResults(item, onDetailsClick)
-                    }else {
-                        ListResults(null, onDetailsClick)
                     }
 
                 }
@@ -112,13 +98,6 @@ fun ListResults(
     Column(
         modifier = Modifier.padding(top = 15.dp)
     ) {
-        //Divider( modifier = modifier.padding(16.dp))
-        /*Text(
-            text = "${results.lastName}, ${results.firstName}",
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = 20.sp,
-
-            )*/
             Card(
                 modifier = Modifier
                     .fillMaxWidth()

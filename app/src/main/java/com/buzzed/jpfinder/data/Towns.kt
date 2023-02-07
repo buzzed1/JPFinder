@@ -4,7 +4,7 @@ import android.util.Log
 import com.buzzed.jpfinder.R
 
 
-fun Towns(parish: String): Set<Int> {
+fun towns(parish: String): Set<Int> {
 
 
 

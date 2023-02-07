@@ -23,11 +23,10 @@ import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.buzzed.jpfinder.JPFinderApplication
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
-import com.buzzed.jpfinder.data.ParishList
-import com.buzzed.jpfinder.data.Towns
+import com.buzzed.jpfinder.data.parishList
+import com.buzzed.jpfinder.data.towns
 import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 
@@ -77,8 +76,8 @@ fun HomeScreenBody(
     val listUiState by listviewModel.uiState.collectAsState()
     var expandedParishList by remember { mutableStateOf(false)}
     var expandedCommunityList by remember { mutableStateOf(false)}
-    val parishList = ParishList()
-    val communityList = Towns(homeUiState.selectedParish)
+    val parishList = parishList()
+    val communityList = towns(homeUiState.selectedParish)
     viewModel.updateLists(parishList, communityList)
     var textfieldSize by remember { mutableStateOf(Size.Zero)}
     val context = LocalContext.current

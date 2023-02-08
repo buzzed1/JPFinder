@@ -77,4 +77,21 @@
     <string name="catherine_hall">Catherine Hall</string>
     <string name="coopers_hill">Coopers Hill</string>
     <string name="unity_hall">Unity Hall</string>
+    <string name="aenon_town">Aenon Town</string>
+    <string name="alston">Alston</string>
+    <string name="ashley">Ashley</string>
+    <string name="birds_hill">Birds Hill</string>
+    <string name="borobridge">Borobridge</string>
+    <string name="bushy_park">Bushy Park</string>
+    <string name="canaan_heights">Canaan Heights</string>
+    <string name="chapleton">Chapleton</string>
+    <string name="chateau">Chateau</string>
+    <string name="coates_pen">Coates Pen</string>
+    <string name="coffee_piece">Coffee Piece</string>
+    <string name="colonels_ridge">Colonel\'s Ridge</string>
+    <string name="coxwain">Coxwain</string>
+    <string name="crawl_river">Crawl River</string>
+    <string name="crofts_hill">Crofts Hill</string>
+    <string name="crooked_river">Crooked River</string>
+
 </resources>

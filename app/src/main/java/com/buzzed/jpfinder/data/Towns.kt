@@ -76,6 +76,116 @@ fun towns(parish: String): Set<Int> {
 
     )
 
+   val clarendonList = listOf(
+       R.string.alston,
+       R.string.ashley,
+       R.string.birds_hill,
+       R.string.borobridge,
+       R.string.bushy_park,
+       R.string.canaan_heights,
+       R.string.chapleton,
+       R.string.chateau,
+       R.string.coates_pen,
+       R.string.coffee_piece,
+       R.string.colonels_ridge,
+       R.string.coxwain,
+       R.string.crawl_river,
+       R.string.crofts_hill,
+       R.string.crooked_river,
+
+
+
+
+
+               /* Alston
+                Ashley
+                birds hill
+                borobridge
+                Bushy Park
+                canaan heights
+                chapleton
+                Chateau
+                coates pen
+                cockpit
+                Coffee Piece
+                Colonel's Ridge
+                coxwain
+                crawl river
+                crofts hill
+                crooked river
+                cumberland
+                Denbigh
+                four path
+                four paths
+                Frankfield
+                franklyn
+                free town
+                georges pen
+                gimme-me-bit
+                glenmuir road
+                gloucester
+                grantham
+                gravel hill
+                green bottom
+                gregory
+                halse hall
+                harriston town
+                hartwell gardens
+                hayes
+                hopefield
+                howella content
+                inglewood
+                jackson street
+                james hill
+                kellits
+                lionel town
+                longlook
+                longville
+                May Pen
+                menie
+                milk river
+                mineral heights
+                mitchell town
+                mocho
+                moneymusk
+                moores
+                moravia
+                morgans pass
+                new bowers
+                new longsville
+                new longville
+                new paisely
+                nine turns
+                osbourne store
+                palmers cross
+                peckham
+                pennants
+                portland cottage
+                race course
+                richmond park
+                rock river
+                rockford
+                rocky point
+                sandy bay
+                sanguinetti
+                scotts pass
+                smithville
+                spalding
+                st georges
+                stewarton
+                thompson town
+                tollgate
+                top hill
+                treadlight
+                trout hall
+                tweedside
+                twin palms
+                witney
+                wood hall
+                york town*/
+
+    )
+
 
 
     Log.d("parish", "$parish")
@@ -84,6 +194,7 @@ fun towns(parish: String): Set<Int> {
     when(parish.lowercase()) {
         "st james" -> {return montegoBayList.sorted().toSet()}
         "st catherine" -> {return stCatherineList.sorted().toSet()}
+        "clarendon" -> {return clarendonList.sorted().toSet()}
     }
 
 

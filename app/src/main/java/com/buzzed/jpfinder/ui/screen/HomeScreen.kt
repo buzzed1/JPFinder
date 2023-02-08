@@ -141,7 +141,7 @@ fun HomeScreenBody(
                         )
 
                     },
-                    enabled = true,
+                    readOnly = true,
                     textStyle = MaterialTheme.typography.titleSmall
 
                 )
@@ -188,7 +188,8 @@ fun HomeScreenBody(
                             }
                         )
                     },
-                    enabled = homeUiState.enabledCommunity
+                    readOnly = true,
+                    //enabled = homeUiState.enabledCommunity
 
                 )
                 DropdownMenu(

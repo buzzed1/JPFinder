@@ -104,7 +104,7 @@ fun ListResults(
                     .padding(start = 16.dp, end = 16.dp)
                     .clickable {
                         if (results != null) {
-                            DetailsScreenDestination.jpId = results.id
+                            DetailsScreenDestination.jpId = results.id!!
                             detailsClick(DetailsScreenDestination.jpId)
                         } else {
 

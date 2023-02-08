@@ -3,7 +3,7 @@ package com.buzzed.jpfinder.ui.screen
 import com.buzzed.jpfinder.data.JP
 
 data class JPUiState(
-    val id: Int = 0,
+    val id: Int? = 0,
     val lastName: String? = "",
     val firstName: String? = "",
     val middleName: String? = "",

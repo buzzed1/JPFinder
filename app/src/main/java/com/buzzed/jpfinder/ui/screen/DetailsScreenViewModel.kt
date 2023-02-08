@@ -14,6 +14,10 @@ class DetailsScreenViewModel(
 ) : ViewModel() {
 
 
+    private var _uiState = MutableStateFlow(DetailUiState())
+
+    val uiState: StateFlow<DetailUiState> = _uiState
+
     val detailUiState: StateFlow<DetailUiState> = jpRepository.getAllJPStream().map {
         DetailUiState(it)}
         .filterNotNull()
@@ -46,11 +50,17 @@ class DetailsScreenViewModel(
         return filteredJP
     }
 
+    fun updateJp(name: String) {
+
+
+    }
+
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
 }
 
 data class DetailUiState(
-    val jpFiltered: List<JP?> = listOf()
+    val jpFiltered: List<JP?> = listOf(),
+    val jp: JP? = null
 )

@@ -1,8 +1,5 @@
 package com.buzzed.jpfinder.data
 
-import android.os.Parcel
-import android.os.Parcelable
-import androidx.annotation.StringRes
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -10,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "jp_list")
 data class JP(
      @PrimaryKey(autoGenerate = true)
-     val id: Int,
+     val id: Int? = null,
      @ColumnInfo(name = "lastname")
      val lastName: String?,
      @ColumnInfo(name = "firstname")

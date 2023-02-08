@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,6 +14,7 @@ import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
+import androidx.compose.material3.OutlinedTextField
 
 object DetailsScreenDestination: NavigationDestination {
     override val route = "details_screen"
@@ -34,8 +34,8 @@ fun DetailsScreen(
 
 
 ){
-     val uiState = viewModel.detailUiState.collectAsState()
-
+     val uiState by viewModel.uiState.collectAsState()
+        var oText by remember{ mutableStateOf("") }
 
 
     Scaffold(
@@ -74,7 +74,8 @@ fun DetailsScreen(
                             Log.d("JP check", "ID does not match: $jp")
                         }
 
-                            Column() {
+                            Column(modifier = modifier.padding(paddingValues = it)) {
+
                                 Text(
                                     "FirstName:",
                                     modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)

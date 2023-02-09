@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.JPRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class DetailsScreenViewModel(
     savedStateHandle: SavedStateHandle,
     jpRepository: JPRepository
 ) : ViewModel() {
+
 
 
     private var _uiState = MutableStateFlow(DetailUiState())
@@ -27,20 +30,18 @@ class DetailsScreenViewModel(
             initialValue = DetailUiState()
         )
 
+     private var jpFromId: JP? = null
 
 
-    fun getFilteredJP(id: Int): JP? {
-        val rJp = JP(0,"","","","","","","")
-       val returnedJp = detailUiState.value.jpFiltered.filter {jp ->
-            jp?.id == (id ?: 0)
-
+    init {
+        viewModelScope.launch(Dispatchers.IO) {
+            jpFromId = jpRepository.getJPStream(DetailsScreenDestination.jpId)
         }
-        Log.d("jpId", "$returnedJp.first()")
-        return if(returnedJp.isEmpty()){
-            rJp
-        } else {
-            returnedJp.first()
-        }
+
+    }
+
+    fun getFilteredJP(): JP? {
+       return jpFromId
     }
 
     fun filterJP(): JP {
@@ -62,5 +63,5 @@ class DetailsScreenViewModel(
 
 data class DetailUiState(
     val jpFiltered: List<JP?> = listOf(),
-    val jp: JP? = null
-)
+
+    )

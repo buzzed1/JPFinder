@@ -16,12 +16,15 @@ interface JPDao {
         suspend fun delete(jp: JP)
 
         @Query("SELECT * from jp_list WHERE id = :id")
-        fun getJp(id: Int?): Flow<JP>
+        fun getJp(id: Int?): JP
 
         @Query("SELECT * from jp_list ORDER BY lastname ASC")
         fun getAllItems(): Flow<List<JP>>
 
         @Query("SELECT * from jp_list WHERE community = :community")
         fun getJpInCommunity(community: String): Flow<List<JP>>
+
+
+
 
 }

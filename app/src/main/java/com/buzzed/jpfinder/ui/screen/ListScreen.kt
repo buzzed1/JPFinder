@@ -1,5 +1,6 @@
 package com.buzzed.jpfinder.ui.screen
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -53,7 +54,7 @@ fun ListScreen(
 ) {
 
     val listUiState by listViewModel.listUiState.collectAsState()
-    val itemList = listUiState.jpList
+    val itemList = listViewModel.filterJpInCommunity(communityName)
     val context = LocalContext.current
 
     Scaffold(
@@ -64,8 +65,8 @@ fun ListScreen(
                 navigateUp = onNavigateBack,
                 modifier = modifier
             )
-        },
-        containerColor = MaterialTheme.colorScheme.surface
+        }
+
 
     ) { contentPadding ->
 
@@ -74,16 +75,17 @@ fun ListScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
 
             ) {
+
                 items(itemList) { item ->
-                    if(item.community == communityName) {
+                    if (item.community?.lowercase() == communityName?.lowercase()) {
                         ListResults(item, onDetailsClick)
                     }
-
                 }
-
             }
-        }
+
     }
+
+}
 
 
 
@@ -96,49 +98,70 @@ fun ListResults(
 ) {
 
     Column(
-        modifier = Modifier.padding(top = 15.dp)
+        modifier = Modifier.padding(top = 15.dp, bottom = 15.dp)
     ) {
+        if (results != null) {
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
                     .clickable {
-                        if (results != null) {
                             DetailsScreenDestination.jpId = results.id!!
                             detailsClick(DetailsScreenDestination.jpId)
-                        } else {
-
-                        }
-
                     }
                     .height(50.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
-                colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.surface)
+                colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.primary)
             ) {
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(top = 10.dp),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
+
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(top = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceEvenly,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Text(
                             text = "${results?.lastName}, ${results?.firstName}",
-                            color = MaterialTheme.colorScheme.onSurface,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 20.sp,
 
-                        )
-                }
+                            )
+                    }
+                    Divider(modifier = modifier.padding(16.dp))
 
             }
-        Divider(modifier = modifier.padding(16.dp))
 
+        }else {
+            Text(
+                text = "No JPs Found",
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontSize = 20.sp,
+
+                )
         }
+    }
 
 }
 
-
+//@Composable
+//fun NoJPFound(
+//    modifier: Modifier = Modifier
+//) {
+//    Column(
+//        modifier = Modifier.fillMaxWidth(),
+//        horizontalAlignment = Alignment.CenterHorizontally,
+//        verticalArrangement = Arrangement.Center
+//
+//    ) {
+//        Text(
+//            text = "No JPs Found",
+//            fontSize = 24.sp,
+//
+//            )
+//    }
+//}
 
 @Preview(showBackground = true,
 showSystemUi = true)

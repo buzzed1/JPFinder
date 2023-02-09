@@ -26,7 +26,7 @@ fun JPUiState.toJP(): JP = JP(
     emailAddress = email
 )
 
-fun JP.toJPUiState(actionEnabled: Boolean = false): JPUiState = JPUiState(
+fun JP.toJPUiState(): JPUiState = JPUiState(
     id = id,
     lastName = lastName,
     firstName = firstName,

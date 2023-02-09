@@ -44,7 +44,7 @@ fun JPFinderTopBar(
             title = {
                 Text(
                     stringResource(title),
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                     },
             modifier = Modifier,
@@ -57,7 +57,10 @@ fun JPFinderTopBar(
                     )
                 }
             },
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                titleContentColor = MaterialTheme.colorScheme.onBackground
+            )
         )
 
 
@@ -66,11 +69,14 @@ fun JPFinderTopBar(
             title = {
                 Text(
                     stringResource(title),
-                    color = MaterialTheme.colorScheme.onPrimaryContainer
+                    color = MaterialTheme.colorScheme.onBackground
                 )
                     },
             modifier = modifier,
-            colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+            colors = TopAppBarDefaults.topAppBarColors(
+                containerColor = MaterialTheme.colorScheme.background,
+                titleContentColor = MaterialTheme.colorScheme.onBackground
+            )
         )
 
         }

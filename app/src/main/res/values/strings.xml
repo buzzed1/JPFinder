@@ -19,7 +19,6 @@
     <string name="glendevon">Glendevon</string>
     <string name="paridise">Paradise</string>
     <string name="norwood">Norwood</string>
-    <string name="back_botton">Back Button</string>
     <string name="westgreen">Westgreen</string>
     <string name="iron_shore">Ironshore</string>
     <string name="irwin">Irwin</string>
@@ -77,7 +76,6 @@
     <string name="catherine_hall">Catherine Hall</string>
     <string name="coopers_hill">Coopers Hill</string>
     <string name="unity_hall">Unity Hall</string>
-    <string name="aenon_town">Aenon Town</string>
     <string name="alston">Alston</string>
     <string name="ashley">Ashley</string>
     <string name="birds_hill">Birds Hill</string>

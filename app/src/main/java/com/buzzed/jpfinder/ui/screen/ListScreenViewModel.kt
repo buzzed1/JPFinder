@@ -1,10 +1,12 @@
 package com.buzzed.jpfinder.ui.screen
 
+import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.data.JP
+import com.buzzed.jpfinder.data.JPDao
 import com.buzzed.jpfinder.data.JPRepository
 import kotlinx.coroutines.flow.*
 
@@ -30,10 +32,13 @@ class ListScreenViewModel(
         //To Do: filter community list based on parish //
         val list = mutableListOf<JP>()
         listUiState.value.jpList.map {jp ->
-            if(jp.community == communityName) {
+            if(jp.community?.lowercase() == communityName?.lowercase()) {
                 list.add(jp)
             }
         }
+
+        Log.d("filterJPInCommunity","list size: ${list.size}")
+        Log.d("filterJPInCommunity","list: $list")
         return list
     }
 

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.buzzed.jpfinder.JPFinderApplication
+import com.buzzed.jpfinder.data.JPDao
 
 object AppViewModelProvider {
     val factory = viewModelFactory {
@@ -15,7 +16,7 @@ object AppViewModelProvider {
 
         initializer {
             ListScreenViewModel(
-                JPFinderApplication().container.jpRepository
+                JPFinderApplication().container.jpRepository,
             )
         }
 

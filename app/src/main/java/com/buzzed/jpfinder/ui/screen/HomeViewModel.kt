@@ -17,12 +17,8 @@ class HomeViewModel(
     private var _uiState = MutableStateFlow(HomeUiState())
 
     val uiState: StateFlow<HomeUiState> = _uiState
-    val jp = JP(0, "Jones","George","","","","Westgreen","")
-init {
-    viewModelScope.launch {
-        //jpRepository.updateJP(jp)
-    }
-}
+
+
     fun updateLists(pList: List<Int>, cList: Set<Int> ) {
         _uiState.update {currentState ->
         currentState.copy(

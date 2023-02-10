@@ -77,8 +77,12 @@ fun ListScreen(
             ) {
 
                 items(itemList) { item ->
-                    if (item.community?.lowercase() == communityName?.lowercase()) {
-                        ListResults(item, onDetailsClick)
+                    if(itemList.isEmpty()){
+                        EmptyListResults()
+                    } else {
+                        if (item.community?.lowercase() == communityName?.lowercase()) {
+                            ListResults(item, onDetailsClick)
+                        }
                     }
                 }
             }
@@ -100,14 +104,17 @@ fun ListResults(
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 15.dp)
     ) {
-        if (results != null) {
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
                     .clickable {
-                            DetailsScreenDestination.jpId = results.id!!
-                            detailsClick(DetailsScreenDestination.jpId)
+                            if (results != null) {
+                                DetailsScreenDestination.jpId = results.id!!
+                                detailsClick(DetailsScreenDestination.jpId)
+                            }
+
                     }
                     .height(50.dp),
                 elevation = CardDefaults.cardElevation(4.dp),
@@ -133,14 +140,49 @@ fun ListResults(
 
             }
 
-        }else {
-            Text(
-                text = "No JPs Found",
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontSize = 20.sp,
 
-                )
+
+    }
+
+}
+
+@Composable
+fun EmptyListResults(
+    modifier: Modifier = Modifier
+) {
+
+    Column(
+        modifier = Modifier.padding(top = 15.dp, bottom = 15.dp)
+    ) {
+
+        Card(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 16.dp, end = 16.dp)
+                .height(50.dp),
+            elevation = CardDefaults.cardElevation(4.dp),
+            colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.primary)
+        ) {
+
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 10.dp),
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "No JPs Found",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontSize = 20.sp,
+
+                    )
+            }
+
         }
+
+
+
     }
 
 }

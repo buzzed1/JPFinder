@@ -7,8 +7,12 @@ import androidx.lifecycle.viewModelScope
 import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.JPRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+
+
+
 
 class DetailsScreenViewModel(
     savedStateHandle: SavedStateHandle,

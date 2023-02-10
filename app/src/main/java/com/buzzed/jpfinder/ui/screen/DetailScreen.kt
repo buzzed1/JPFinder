@@ -8,11 +8,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
+import kotlinx.coroutines.delay
 
 object DetailsScreenDestination: NavigationDestination {
     override val route = "details_screen"
@@ -31,10 +33,8 @@ fun DetailsScreen(
     viewModel: DetailsScreenViewModel = viewModel(factory = AppViewModelProvider.factory),
 
     ) {
-    val jp = viewModel.getFilteredJP()
 
-
-
+        val jp = viewModel.getFilteredJP()
 
     Scaffold(
         topBar = {
@@ -48,87 +48,106 @@ fun DetailsScreen(
 
         Column(modifier = modifier.padding(it)) {
 
-
-            Column(
-                modifier = modifier.padding(top = 20.dp),
-
-                ) {
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp),
+                        .fillMaxHeight()
+                        .padding(start = 8.dp, end = 8.dp),
                     elevation = CardDefaults.cardElevation(4.dp),
-                    colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.surface)
+                    colors = CardDefaults.elevatedCardColors(MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.onPrimary
+                    )
                 ) {
                     Column(
                         horizontalAlignment = Alignment.Start,
-                        modifier = Modifier.padding(all = 16.dp)
+                        modifier = Modifier.padding(start = 8.dp, bottom = 12.dp)
                         //verticalArrangement = Arrangement.Center
                     ) {
 
-                        Column(modifier = modifier.padding(paddingValues = it)) {
+                        Column(modifier = modifier) {
 
                             Text(
                                 "FirstName:",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp,
+
                             )
 
-                            Text("${jp?.firstName}")
+                            Text("${jp?.firstName}",
+                                fontSize = 24.sp
+                            )
 
                         }
                         Divider()
                         Column() {
                             Text(
                                 "MiddleName: ",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp
                             )
-                            Text("${jp?.middleName}")
+                            Text("${jp?.middleName}",
+                                fontSize = 24.sp
+                            )
                         }
                         Divider()
                         Column() {
                             Text(
                                 "LastName: ",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp
                             )
-                            Text("${jp?.lastName}")
+                            Text("${jp?.lastName}",
+                                fontSize = 24.sp
+                            )
                         }
                         Divider()
                         Column() {
                             Text(
                                 "Address1: ",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp
                             )
-                            Text("${jp?.address1}")
+                            Text("${jp?.address1}",
+                                fontSize = 24.sp
+                            )
 
                         }
                         Divider()
                         Column() {
                             Text(
                                 "Address2: ",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp
                             )
-                            Text("${jp?.address2}")
+                            Text("${jp?.address2}",
+                                fontSize = 24.sp
+                            )
                         }
                         Divider()
                         Column() {
                             Text(
                                 "Community: ",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp
                             )
-                            Text("${jp?.community}")
+                            Text("${jp?.community}",
+                                fontSize = 24.sp
+                            )
                         }
                         Divider()
                         Column() {
                             Text(
                                 "Email Address: ",
-                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+                                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp),
+                                fontSize = 20.sp
                             )
                             Text("${jp?.emailAddress}",
-                                modifier = Modifier.clickable { })
+                                modifier = Modifier.clickable { },
+                                fontSize = 24.sp
+                            )
                         }
                         Divider()
                     }
-                }
             }
         }
 
@@ -146,7 +165,7 @@ fun DetailsScreen(
 fun DetailsScreenPreview() {
     JPFinderTheme {
 
-        //DetailsScreen({ } ,0, modifier = Modifier, jpDao)
+        DetailsScreen({ } ,0, modifier = Modifier)
     }
 }
 
@@ -155,6 +174,6 @@ fun DetailsScreenPreview() {
 @Composable
 fun DetailsScreenPreview1() {
     JPFinderTheme {
-        //DetailsScreen({ } ,1)
+        DetailsScreen({ } ,1)
     }
 }

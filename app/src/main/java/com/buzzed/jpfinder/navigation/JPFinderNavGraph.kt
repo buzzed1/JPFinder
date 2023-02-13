@@ -26,7 +26,6 @@ fun JPFinderNavHost(
         composable(
             route = HomeDestination.route
         ) {
-            val context = LocalContext.current
             HomeScreen(
                 onNavigateToList = {
                     navController.navigate(ListScreenDestination.routeWithArgs)

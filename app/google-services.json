@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "159660662432",
+    "project_id": "jpfinder-69afb",
+    "storage_bucket": "jpfinder-69afb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159660662432:android:d0f83e11a549aaf153b3c5",
+        "android_client_info": {
+          "package_name": "com.buzzed.jpfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159660662432-rpu94e3ll1qb682i7547n5e79vp7pibq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgQoa6vj8Pd7ObS0A7aVO4XP7JzTuIC8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159660662432-rpu94e3ll1qb682i7547n5e79vp7pibq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

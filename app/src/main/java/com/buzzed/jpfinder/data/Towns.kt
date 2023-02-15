@@ -74,7 +74,7 @@ fun towns(parish: String): Set<Int> {
         R.string.sligoville,
         R.string.kitson_town
 
-    )
+    ).sorted()
 
    val clarendonList = listOf(
        R.string.alston,
@@ -97,22 +97,7 @@ fun towns(parish: String): Set<Int> {
 
 
 
-               /* Alston
-                Ashley
-                birds hill
-                borobridge
-                Bushy Park
-                canaan heights
-                chapleton
-                Chateau
-                coates pen
-                cockpit
-                Coffee Piece
-                Colonel's Ridge
-                coxwain
-                crawl river
-                crofts hill
-                crooked river
+               /*
                 cumberland
                 Denbigh
                 four path
@@ -184,7 +169,7 @@ fun towns(parish: String): Set<Int> {
                 wood hall
                 york town*/
 
-    )
+    ).sorted()
 
 
 
@@ -192,9 +177,9 @@ fun towns(parish: String): Set<Int> {
         //return montegoBayList.sorted().toSet()
 
     when(parish.lowercase()) {
-        "st james" -> {return montegoBayList.sorted().toSet()}
-        "st catherine" -> {return stCatherineList.sorted().toSet()}
-        "clarendon" -> {return clarendonList.sorted().toSet()}
+        "st james" -> {return montegoBayList.toSet()}
+        "st catherine" -> {return stCatherineList.toSet()}
+        "clarendon" -> {return clarendonList.toSet()}
     }
 
 

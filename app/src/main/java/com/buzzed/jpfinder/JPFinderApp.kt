@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -18,8 +19,27 @@ import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JPFinderApp(
-navController: NavHostController = rememberNavController(),
+    navController: NavHostController = rememberNavController(),
+    windowSize: WindowWidthSizeClass,
 ) {
+    val contentType: JPFinderContentType
+
+    when (windowSize) {
+        WindowWidthSizeClass.Compact -> {
+            HomeScreen(onNavigateToList = { /*TODO*/ })
+        }
+        WindowWidthSizeClass.Medium -> {
+        }
+        WindowWidthSizeClass.Expanded -> {
+            Row() {
+                HomeScreen(onNavigateToList = { /*TODO*/ })
+                ListScreen(communityName = "Alston", onNavigateBack = { /*TODO*/ }, onDetailsClick = {} )
+            }
+        }
+        else -> {
+        }
+    }
+
     JPFinderNavHost(
         navController = navController,
         modifier = Modifier

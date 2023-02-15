@@ -2,27 +2,20 @@ package com.buzzed.jpfinder.ui.screen
 
 
 
-import androidx.compose.foundation.clickable
+import android.content.Context
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
-import androidx.compose.material.icons.filled.ArrowForward
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.toSize
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.parishList
@@ -44,9 +37,7 @@ object HomeDestination : NavigationDestination {
 fun HomeScreen(
     onNavigateToList: () -> Unit,
     modifier: Modifier = Modifier,
-    navController: NavController = rememberNavController()
 ) {
-    val screenName = R.string.app_name
 Scaffold(
     topBar = {
         JPFinderTopBar(
@@ -56,43 +47,27 @@ Scaffold(
     }
 ) {
     Column(modifier = modifier.padding(it)) {
-        HomeScreenBody(onNavigateToList = onNavigateToList, navController = navController)
+        HomeScreenBody(onNavigateToList = onNavigateToList)
     }
 
 }
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreenBody(
-    navController: NavController,
     onNavigateToList: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory),
-    listviewModel: ListScreenViewModel = viewModel(factory = AppViewModelProvider.factory)
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
     val homeUiState by viewModel.uiState.collectAsState()
-    val listUiState by listviewModel.uiState.collectAsState()
-    var expandedParishList by remember { mutableStateOf(false)}
-    var expandedCommunityList by remember { mutableStateOf(false)}
+    //val listUiState by listviewModel.uiState.collectAsState()
     val parishList = parishList()
     val communityList = towns(homeUiState.selectedParish)
     viewModel.updateLists(parishList, communityList)
-    var textfieldSize by remember { mutableStateOf(Size.Zero)}
     val context = LocalContext.current
-
-
-
-    val parishIcon = if (expandedParishList)
-        Icons.Filled.ArrowForward //it requires androidx.compose.material:material-icons-extended
-    else
-        Icons.Filled.ArrowDropDown
-
-    val communityIcon = if (expandedCommunityList)
-        Icons.Filled.ArrowForward //it requires androidx.compose.material:material-icons-extended
-    else
-        Icons.Filled.ArrowDropDown
+    val parishLabel = "Select Parish"
+    val communityLabel = "Select Community"
 
 
     Column(
@@ -102,7 +77,7 @@ fun HomeScreenBody(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp)
 
-        ) {
+    ) {
         Card(
             colors = CardDefaults.cardColors(
                 containerColor = MaterialTheme.colorScheme.surface,
@@ -118,114 +93,42 @@ fun HomeScreenBody(
 
 
                 Text(
-                    text = "Please Enter Your Parish",
+                    text = "Please Select Options Below",
                     color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.headlineMedium
+                    style = MaterialTheme.typography.headlineSmall
                 )
 
                 Divider()
-                OutlinedTextField(
-                    value = homeUiState.selectedParish,
-                    onValueChange = { homeUiState.selectedParish },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .onGloballyPositioned { coordinates ->
-                            textfieldSize = coordinates.size.toSize()
-                        },
-                    label = { Text(text = "Select Parish") },
-                    trailingIcon = {
-                        Icon(parishIcon, contentDescription = "Select Parish",
-                            modifier = Modifier.clickable {
-                                expandedParishList = !expandedParishList
-                            }
-                        )
 
-                    },
-                    readOnly = true,
-                    textStyle = MaterialTheme.typography.titleSmall
-
+                DropDownMenuParish(
+                    parishList,
+                    homeUiState,
+                    viewModel,
+                    context,
+                    parishLabel,
                 )
-                DropdownMenu(
-                    expanded = expandedParishList,
-                    onDismissRequest = { expandedParishList = false },
-                    modifier = Modifier
-                        .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                ) {
-                    parishList.forEach { label ->
-                        DropdownMenuItem(
-                            text = { Text(text = stringResource(label)) },
-                            onClick = {
-
-                                viewModel.selectParish(context.getString(label))
-                                expandedParishList = false
-                                viewModel.enableCommunity()
-                            },
-                            enabled = true,
-
-                            )
-
-                    }
-
-
-                }
-
-
                 Spacer(modifier = Modifier.width(10.dp))
-
-                OutlinedTextField(
-                    value = homeUiState.selectedCommunity,
-                    onValueChange = { viewModel.selectCommunity(it) },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .onGloballyPositioned { coordinates ->
-                            textfieldSize = coordinates.size.toSize()
-                        },
-                    label = { Text(text = "Select Community") },
-                    trailingIcon = {
-                        Icon(communityIcon, contentDescription = "Select Community",
-                            modifier = Modifier.clickable {
-                                expandedCommunityList = !expandedCommunityList
-                            }
-                        )
-                    },
-                    readOnly = true,
-                    //enabled = homeUiState.enabledCommunity
-
+                DropDownMenuCommunity(
+                    communityList.toList(),
+                    homeUiState,
+                    viewModel,
+                    context,
+                    communityLabel,
                 )
-                DropdownMenu(
-                    expanded = expandedCommunityList,
-                    onDismissRequest = { expandedCommunityList = false },
-                    modifier = Modifier
-                        .width(with(LocalDensity.current) { textfieldSize.width.toDp() })
-                ) {
-                    communityList.forEach { label ->
-                        DropdownMenuItem(
-                            text = { Text(text = stringResource(label)) },
-                            onClick = {
-                                viewModel.selectCommunity(context.getString(label))
-                                viewModel.enableButton()
-                                expandedCommunityList = false
-                            },
-                            enabled = homeUiState.enabledCommunity
-                        )
-
-                    }
-
-
-                }
 
                 Divider()
                 Button(
                     modifier = Modifier,
-                    shape = MaterialTheme.shapes.medium,
+                    shape = RoundedCornerShape(8.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                     onClick = {
                         ListScreenDestination.communityArg = homeUiState.selectedCommunity
                         onNavigateToList()
 
                     },
-                    enabled = homeUiState.enabledButton
-                ) {
+                    enabled = homeUiState.enabledButton,
+
+                    ) {
                     Text(
                         text = "Find JPs",
                         fontWeight = FontWeight.Bold,
@@ -240,16 +143,135 @@ fun HomeScreenBody(
 
 
 
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DropDownMenuParish(
+    options: List<Int>,
+    uiState: HomeUiState,
+    viewModel: HomeViewModel,
+    context: Context,
+    label: String,
+    modifier: Modifier = Modifier
+
+) {
+
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOptionText by remember { mutableStateOf("") }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier.fillMaxWidth()
+    ) {
+
+        TextField(
+            readOnly = true,
+            value = uiState.selectedParish,
+            onValueChange = { uiState.selectedParish },
+            label = { Text(label) },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded =  expanded
+                )
+            },
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded =  expanded,
+            onDismissRequest = {
+                expanded = false
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            options.forEach { selectionOption ->
+                DropdownMenuItem(
+                    { Text(stringResource(selectionOption)) },
+                    onClick = {
+                        viewModel.selectParish(context.getString(selectionOption))
+                        selectedOptionText = context.getString(selectionOption)
+                        expanded = false
+                        //viewModel.enableCommunity()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+
+                )
+            }
+        }
+
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun DropDownMenuCommunity(
+    options: List<Int>,
+    uiState: HomeUiState,
+    viewModel: HomeViewModel,
+    context: Context,
+    label: String,
+    modifier: Modifier = Modifier
+
+) {
+    //val options = listOf("Option 1", "Option 2", "Option 3", "Option 4", "Option 5")
+    var expanded by remember { mutableStateOf(false) }
+    var selectedOptionText by remember { mutableStateOf("") }
+
+    ExposedDropdownMenuBox(
+        expanded = expanded,
+        onExpandedChange = { expanded = !expanded },
+        modifier.fillMaxWidth()
+    ) {
+
+        TextField(
+            readOnly = true,
+            value = uiState.selectedCommunity,
+            onValueChange = { uiState.selectedCommunity },
+            label = { Text(label) },
+            trailingIcon = {
+                ExposedDropdownMenuDefaults.TrailingIcon(
+                    expanded =  expanded
+                )
+            },
+            colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            modifier = Modifier
+                .menuAnchor()
+                .fillMaxWidth()
+        )
+        ExposedDropdownMenu(
+            expanded =  expanded,
+            onDismissRequest = {
+                expanded = false
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            options.forEach { selectionOption ->
+                DropdownMenuItem(
+                    { Text(stringResource(selectionOption)) },
+                    onClick = {
+                        viewModel.selectCommunity(context.getString(selectionOption))
+                        selectedOptionText = context.getString(selectionOption)
+                        expanded = false
+                        viewModel.enableButton()
+                    },
+                    modifier = Modifier.fillMaxWidth()
+
+                    )
+            }
+        }
+
+    }
+}
 
 
+@Composable
+fun favoriteList(){
+    LazyColumn( ) {
 
-
-
-
-
-
-
-
+    }
+}
 
 
 @Preview(showBackground = true)

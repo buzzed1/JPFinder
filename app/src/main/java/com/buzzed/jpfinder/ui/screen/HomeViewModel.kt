@@ -36,7 +36,7 @@ class HomeViewModel(
                  selectedParish = parish,
                  )
              }
-            enableCommunity()
+            //enableCommunity()
         }
 
 

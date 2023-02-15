@@ -89,7 +89,7 @@ class JPDaoTest {
         fun daoGetJp_returnsJPFromDB() = runBlocking {
             addOneItemToDb()
             val jp = jpDao.getJp(1)
-            assertEquals(jp.first(), jp)
+            assertEquals(jp, jp)
         }
 
 

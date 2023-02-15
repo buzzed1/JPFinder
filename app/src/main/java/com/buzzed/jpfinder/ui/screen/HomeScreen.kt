@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
@@ -22,6 +23,9 @@ import com.buzzed.jpfinder.data.parishList
 import com.buzzed.jpfinder.data.towns
 import com.buzzed.jpfinder.navigation.NavigationDestination
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdSize
+import com.google.android.gms.ads.AdView
 
 
 object HomeDestination : NavigationDestination {
@@ -68,6 +72,7 @@ fun HomeScreenBody(
     val context = LocalContext.current
     val parishLabel = "Select Parish"
     val communityLabel = "Select Community"
+
 
 
     Column(
@@ -135,9 +140,11 @@ fun HomeScreenBody(
                         color = MaterialTheme.colorScheme.onPrimary
                     )
                 }
+
             }
         }
 
+        bannerAds(context = context)
     }
 }
 
@@ -265,6 +272,29 @@ fun DropDownMenuCommunity(
     }
 }
 
+
+@Composable
+fun bannerAds(context: Context) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        //Spacer(modifier = Modifier.height(200.dp))
+
+        AndroidView(
+            factory = { context ->
+                AdView(context).apply {
+                   setAdSize(AdSize.BANNER)
+                    adUnitId = "ca-app-pub-3940256099942544/6300978111"
+                    loadAd(AdRequest.Builder().build())
+                }
+            }
+        )
+
+    }
+}
 
 @Composable
 fun favoriteList(){

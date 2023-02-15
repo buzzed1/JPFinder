@@ -42,7 +42,8 @@ fun JPFinderApp(
 
     JPFinderNavHost(
         navController = navController,
-        modifier = Modifier
+        modifier = Modifier,
+        windowSize = windowSize
     )
 
 }

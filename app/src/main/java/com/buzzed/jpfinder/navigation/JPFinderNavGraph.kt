@@ -1,8 +1,9 @@
 package com.buzzed.jpfinder.navigation
 
+import androidx.compose.material3.windowsizeclass.WindowSizeClass
+import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -13,24 +14,41 @@ import com.buzzed.jpfinder.ui.screen.ListScreenDestination.communityArg
 fun JPFinderNavHost(
     navController: NavHostController,
     modifier: Modifier,
-
+    windowSize: WindowWidthSizeClass
 
 ) {
 
    NavHost(
         navController = navController,
-        startDestination = HomeDestination.route,
+        startDestination = HomeAndListDestination.route,
         modifier = modifier
     )
     {
-        composable(
-            route = HomeDestination.route
-        ) {
-            HomeScreen(
-                onNavigateToList = {
-                    navController.navigate(ListScreenDestination.routeWithArgs)
-                })
-        }
+
+            composable(
+                route = HomeAndListDestination.route
+            ) {
+
+                HomeAndListScreen(
+                    communityName = communityArg,
+                    onNavigateToList = { navController.navigate(ListScreenDestination.routeWithArgs) },
+                    onNavigateBack = { navController.popBackStack() },
+                    onDetailsClick = { navController.navigate(DetailsScreenDestination.route) }
+
+                )
+            }
+
+
+
+           /* composable(
+                route = HomeDestination.route
+            ) {
+                HomeScreen(
+                    onNavigateToList = {
+                        navController.navigate(ListScreenDestination.routeWithArgs)
+                    })
+            }
+
         composable(
             route = ListScreenDestination.routeWithArgs,
             arguments = ListScreenDestination.arguments,
@@ -51,9 +69,9 @@ fun JPFinderNavHost(
 
             DetailsScreen(
                 onNavigateUp = { navController.popBackStack() },
-                id = DetailsScreenDestination.jpId.toInt(),
+                id = DetailsScreenDestination.jpId,
             )
-        }
+        }*/
 
 
 

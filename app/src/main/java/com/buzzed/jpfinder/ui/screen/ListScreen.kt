@@ -29,7 +29,7 @@ import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 object ListScreenDestination: NavigationDestination {
     override val route = "list_screen"
     override val titleRes = R.string.list_screen_title
-    var communityArg = "Westgreen"
+    var communityArg = ""
     val routeWithArgs = "${route}?community=${{communityArg}}"
     val arguments = listOf(
         navArgument(communityArg) {
@@ -47,6 +47,7 @@ fun ListScreen(
     communityName: String?,
     onNavigateBack: () -> Unit,
     onDetailsClick: (Int) -> Unit,
+    canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
     listViewModel: ListScreenViewModel = viewModel(factory = AppViewModelProvider.factory),
 
@@ -61,7 +62,7 @@ fun ListScreen(
         topBar = {
             JPFinderTopBar(
                 title = R.string.list_screen_title,//ListScreenDestination.titleRes,
-                canNavigateBack = true,
+                canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateBack,
                 modifier = modifier
             )
@@ -210,6 +211,6 @@ showSystemUi = true)
 @Composable
 fun ListScreenPreview() {
     JPFinderTheme {
-        ListScreen("",onNavigateBack = {},{})
+        ListScreen("",onNavigateBack = {},{},true)
     }
 }

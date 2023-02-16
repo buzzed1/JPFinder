@@ -31,9 +31,25 @@ fun JPFinderNavHost(
 
                 HomeAndListScreen(
                     communityName = communityArg,
-                    onNavigateToList = { navController.navigate(ListScreenDestination.routeWithArgs) },
+                    onNavigateToList = { navController.navigate(ListScreenDestination.routeWithArgs)},
+                    findJPClick = {},
                     onNavigateBack = { navController.popBackStack() },
-                    onDetailsClick = { navController.navigate(DetailsScreenDestination.route) }
+                    onDetailsClick = { navController.navigate(ListAndDetailDestination.route) },
+                    windowSize = windowSize
+
+                )
+            }
+            composable(
+                route = ListAndDetailDestination.route
+            ) {
+
+                ListAndDetailScreen(
+                    windowSize = windowSize,
+                    onNavigateBack = { navController.popBackStack() },
+                    id = DetailsScreenDestination.jpId,
+                    isLargeSize = true,
+                    onDetailsClick = {},
+                    canNavigateBack = false
 
                 )
             }
@@ -47,7 +63,7 @@ fun JPFinderNavHost(
                     onNavigateToList = {
                         navController.navigate(ListScreenDestination.routeWithArgs)
                     })
-            }
+            }*/
 
         composable(
             route = ListScreenDestination.routeWithArgs,
@@ -57,7 +73,9 @@ fun JPFinderNavHost(
             ListScreen(
                 communityName = communityArg,
                 onDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
-                onNavigateBack = { navController.popBackStack() })
+                onNavigateBack = { navController.popBackStack() },
+                canNavigateBack = true
+            )
         }
 
         composable(
@@ -70,8 +88,10 @@ fun JPFinderNavHost(
             DetailsScreen(
                 onNavigateUp = { navController.popBackStack() },
                 id = DetailsScreenDestination.jpId,
+                isLargeSize = false,
+                canNavigateBack = true
             )
-        }*/
+        }
 
 
 

@@ -22,23 +22,6 @@ fun JPFinderApp(
     navController: NavHostController = rememberNavController(),
     windowSize: WindowWidthSizeClass,
 ) {
-    val contentType: JPFinderContentType
-
-    when (windowSize) {
-        WindowWidthSizeClass.Compact -> {
-            HomeScreen(onNavigateToList = { /*TODO*/ })
-        }
-        WindowWidthSizeClass.Medium -> {
-        }
-        WindowWidthSizeClass.Expanded -> {
-            Row() {
-                HomeScreen(onNavigateToList = { /*TODO*/ })
-                ListScreen(communityName = "Alston", onNavigateBack = { /*TODO*/ }, onDetailsClick = {} )
-            }
-        }
-        else -> {
-        }
-    }
 
     JPFinderNavHost(
         navController = navController,

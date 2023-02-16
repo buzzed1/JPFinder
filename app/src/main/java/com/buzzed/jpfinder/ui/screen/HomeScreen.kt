@@ -3,13 +3,17 @@ package com.buzzed.jpfinder.ui.screen
 
 
 import android.content.Context
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +23,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
+import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.parishList
 import com.buzzed.jpfinder.data.towns
 import com.buzzed.jpfinder.navigation.NavigationDestination
@@ -40,6 +45,7 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeScreen(
     onNavigateToList: () -> Unit,
+    isLargeSize: Boolean,
     modifier: Modifier = Modifier,
 ) {
 Scaffold(
@@ -51,7 +57,7 @@ Scaffold(
     }
 ) {
     Column(modifier = modifier.padding(it)) {
-        HomeScreenBody(onNavigateToList = onNavigateToList)
+        HomeScreenBody(onNavigateToList = onNavigateToList,isLargeSize)
     }
 
 }
@@ -61,6 +67,7 @@ Scaffold(
 @Composable
 fun HomeScreenBody(
     onNavigateToList: () -> Unit,
+    isLargeSize: Boolean,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
@@ -72,6 +79,7 @@ fun HomeScreenBody(
     val context = LocalContext.current
     val parishLabel = "Select Parish"
     val communityLabel = "Select Community"
+    val favoritesList = listOf<JP>()
 
 
 
@@ -122,26 +130,41 @@ fun HomeScreenBody(
                 )
 
                 Divider()
-                Button(
-                    modifier = Modifier,
-                    shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
-                    onClick = {
-                        ListScreenDestination.communityArg = homeUiState.selectedCommunity
-                        onNavigateToList()
+                if (isLargeSize){
 
-                    },
-                    enabled = homeUiState.enabledButton,
+                }else {
+                    Button(
+                        modifier = Modifier,
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        onClick = {
+                            ListScreenDestination.communityArg = homeUiState.selectedCommunity
+                            onNavigateToList()
 
-                    ) {
-                    Text(
-                        text = "Find JPs",
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
+                        },
+                        enabled = homeUiState.enabledButton,
+
+                        ) {
+                        Text(
+                            text = "Find JPs",
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                 }
+                LazyColumn(
+                    modifier = Modifier
+                    .border(border = BorderStroke(1.dp,color = Color.Black))
+                    .fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    item {
+                        Text(text = "No Favorites")
 
+                    }
+                }
             }
+
         }
 
         bannerAds(context = context)
@@ -309,6 +332,6 @@ fun favoriteList(){
 fun HomeScreenPreview() {
 
     JPFinderTheme {
-        HomeScreen( { } )
+        HomeScreen( { },false )
     }
 }

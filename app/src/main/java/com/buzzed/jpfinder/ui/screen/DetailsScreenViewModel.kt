@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.JPRepository
+import com.buzzed.jpfinder.data.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -16,9 +17,9 @@ import kotlinx.coroutines.launch
 
 class DetailsScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    jpRepository: JPRepository
+    jpRepository: JPRepository,
+    val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
-
 
 
     private var _uiState = MutableStateFlow(DetailUiState())
@@ -34,7 +35,18 @@ class DetailsScreenViewModel(
             initialValue = DetailUiState()
         )
 
+    val userPrefUiState: StateFlow<UserPrefUiState> = userPreferencesRepository.isFavorited.map { isFavorited ->
+        UserPrefUiState(isFavorited)
+    } .stateIn(
+        scope = viewModelScope,
+        started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+        initialValue = UserPrefUiState(false)
+    )
+
+
      private var jpFromId: JP? = null
+
+     private val favoriteJPList = mutableListOf<JP>()
 
 
     init {
@@ -48,16 +60,31 @@ class DetailsScreenViewModel(
        return jpFromId
     }
 
-    fun filterJP(): JP {
-        val filteredJP = JP(0,"","","","","","","")
+//    fun filterJP(): JP {
+//        val filteredJP = JP(0,"","","","","","","")
+//
+//
+//        return filteredJP
+//    }
 
+//    fun updateJp(name: String) {
+//
+//    }
 
-        return filteredJP
+    fun setFavoriteJP(isFavorited: Boolean, jp: JP) {
+        val userPref = userPreferencesRepository
+        viewModelScope.launch {
+            userPref.saveFavorited(isFavorited)
+        }
+        favoriteJPList.add(jp)
+        FavoriteJP(favoriteJPList)
+        Log.d("Set Favorite", "$favoriteJPList")
+
     }
 
-    fun updateJp(name: String) {
-
-
+    fun getFavoriteJPs(): List<JP> {
+        Log.d("Return Favorites", "$favoriteJPList")
+        return favoriteJPList
     }
 
     companion object {
@@ -67,5 +94,12 @@ class DetailsScreenViewModel(
 
 data class DetailUiState(
     val jpFiltered: List<JP?> = listOf(),
-
     )
+
+data class UserPrefUiState (
+    val isFavorited: Boolean
+        )
+
+data class FavoriteJP (
+    val jpList: List<JP> = listOf()
+        )

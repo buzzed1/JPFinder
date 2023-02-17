@@ -35,6 +35,7 @@ fun JPFinderNavHost(
                     findJPClick = {},
                     onNavigateBack = { navController.popBackStack() },
                     onDetailsClick = { navController.navigate(ListAndDetailDestination.route) },
+                    onFavoriteDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
                     windowSize = windowSize
 
                 )

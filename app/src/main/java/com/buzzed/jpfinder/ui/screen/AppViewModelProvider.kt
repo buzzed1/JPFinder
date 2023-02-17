@@ -11,7 +11,11 @@ import com.buzzed.jpfinder.data.JPDao
 object AppViewModelProvider {
     val factory = viewModelFactory {
         initializer {
-            HomeViewModel(JPFinderApplication().container.jpRepository)
+            HomeViewModel(
+                JPFinderApplication().container.jpRepository,
+                JPFinderApplication().userPreferencesRepository
+
+            )
         }
 
         initializer {
@@ -23,7 +27,9 @@ object AppViewModelProvider {
         initializer {
             DetailsScreenViewModel(
                 this.createSavedStateHandle(),
-                JPFinderApplication().container.jpRepository)
+                JPFinderApplication().container.jpRepository,
+                JPFinderApplication().userPreferencesRepository
+            )
         }
 
     }

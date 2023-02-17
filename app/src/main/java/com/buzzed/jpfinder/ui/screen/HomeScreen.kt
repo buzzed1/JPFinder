@@ -3,6 +3,7 @@ package com.buzzed.jpfinder.ui.screen
 
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -45,6 +46,7 @@ object HomeDestination : NavigationDestination {
 @Composable
 fun HomeScreen(
     onNavigateToList: () -> Unit,
+    onDetailsClick: (Int)-> Unit,
     isLargeSize: Boolean,
     modifier: Modifier = Modifier,
 ) {
@@ -57,7 +59,7 @@ Scaffold(
     }
 ) {
     Column(modifier = modifier.padding(it)) {
-        HomeScreenBody(onNavigateToList = onNavigateToList,isLargeSize)
+        HomeScreenBody(onNavigateToList = onNavigateToList,isLargeSize, onDetailsClick )
     }
 
 }
@@ -68,8 +70,10 @@ Scaffold(
 fun HomeScreenBody(
     onNavigateToList: () -> Unit,
     isLargeSize: Boolean,
+    onDetailsClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory),
+    detailsScreenViewModel: DetailsScreenViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
     val homeUiState by viewModel.uiState.collectAsState()
     //val listUiState by listviewModel.uiState.collectAsState()
@@ -79,7 +83,7 @@ fun HomeScreenBody(
     val context = LocalContext.current
     val parishLabel = "Select Parish"
     val communityLabel = "Select Community"
-    val favoritesList = listOf<JP>()
+
 
 
 
@@ -152,17 +156,7 @@ fun HomeScreenBody(
                         )
                     }
                 }
-                LazyColumn(
-                    modifier = Modifier
-                    .border(border = BorderStroke(1.dp,color = Color.Black))
-                    .fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    item {
-                        Text(text = "No Favorites")
-
-                    }
-                }
+               //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
             }
 
         }
@@ -320,10 +314,27 @@ fun bannerAds(context: Context) {
 }
 
 @Composable
-fun favoriteList(){
-    LazyColumn( ) {
-
+fun FavoriteList(
+    viewModel: DetailsScreenViewModel,
+    onDetailsClick: (Int)-> Unit,
+){
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        val list = viewModel.getFavoriteJPs()
+        Log.d("Home Favorites List", "$list")
+        if(list.isEmpty()){
+            Text("No Favorites")
+        }else {
+            for (jp in list) {
+                ListResults(jp, onDetailsClick,)
+            }
+        }
     }
+
+
 }
 
 
@@ -332,6 +343,6 @@ fun favoriteList(){
 fun HomeScreenPreview() {
 
     JPFinderTheme {
-        HomeScreen( { },false )
+        //HomeScreen( { },false )
     }
 }

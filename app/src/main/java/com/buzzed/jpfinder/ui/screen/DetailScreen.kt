@@ -123,9 +123,12 @@ fun DetailsScreen(
 
                     IconToggleButton(
                         checked = checkedState.value,
-                        onCheckedChange = {
+                        onCheckedChange = {fave ->
                             checkedState.value = !checkedState.value
-                            TODO("Allow to favorite Jp. It should show up on main page.")
+                            if (jp != null) {
+                                viewModel.setFavoriteJP(fave, jp)
+                            }
+
                                           },
                         modifier = Modifier.padding(10.dp)
                     )
@@ -313,7 +316,7 @@ private fun composeEmail(address: Array<String>, subject: String, context: Conte
 @Composable
 fun DetailsScreenPreview() {
     JPFinderTheme {
-    val jp = JP(1,"Smith","Stephen","George","804 Salem Path","Westgreen","Westgreen","smitstephen@gmail.com")
+        val jp = JP(1,"Smith","Stephen","George","804 Salem Path","Westgreen","Westgreen","smitstephen@gmail.com")
         JpDetails(jp)
     }
 }

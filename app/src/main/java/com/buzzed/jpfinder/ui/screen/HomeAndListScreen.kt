@@ -27,6 +27,7 @@ fun HomeAndListScreen(
     findJPClick: ()-> Unit,
     onNavigateBack: ()-> Unit,
     onDetailsClick: (Int)-> Unit,
+    onFavoriteDetailsClick: (Int)-> Unit,
     windowSize: WindowWidthSizeClass,
     listViewModel: ListScreenViewModel = viewModel(factory = AppViewModelProvider.factory),
     homeViewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory)
@@ -43,7 +44,7 @@ fun HomeAndListScreen(
                     .padding(end = 16.dp, top = 20.dp)
             ) {
 
-                HomeScreen(onNavigateToList = {}, true)
+                HomeScreen(onNavigateToList = {}, {},true)
             }
             Column(
                 modifier = Modifier
@@ -60,7 +61,7 @@ fun HomeAndListScreen(
 
         }
     } else {
-        HomeScreen(onNavigateToList = onNavigateToList, false)
+        HomeScreen(onNavigateToList = onNavigateToList, onFavoriteDetailsClick,false)
     }
 
 }

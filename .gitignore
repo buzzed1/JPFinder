@@ -10,7 +10,10 @@
 .DS_Store
 /build
 /captures
+app/release/
+app/debug/
 .externalNativeBuild
 .cxx
 local.properties
-.pem
+*.pem
+

@@ -36,7 +36,7 @@ fun JPFinderApp(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun JPFinderTopBar(
-    title: Int,
+    title: String,
     canNavigateBack: Boolean,
     navigateUp: () -> Unit = {},
     modifier: Modifier = Modifier
@@ -47,7 +47,7 @@ fun JPFinderTopBar(
         CenterAlignedTopAppBar(
             title = {
                 Text(
-                    stringResource(title),
+                    title,
                     color = MaterialTheme.colorScheme.onBackground
                 )
                     },
@@ -72,7 +72,7 @@ fun JPFinderTopBar(
         CenterAlignedTopAppBar (
             title = {
                 Text(
-                    stringResource(title),
+                    title,
                     color = MaterialTheme.colorScheme.onBackground
                 )
                     },
@@ -92,7 +92,7 @@ fun JPFinderTopBar(
 @Composable
 fun JPFinderThemePreview() {
     JPFinderTheme(useDarkTheme = false) {
-        JPFinderTopBar(R.string.app_name,false, {})
+        JPFinderTopBar(stringResource( R.string.app_name),false, {})
     }
 }
 
@@ -100,6 +100,6 @@ fun JPFinderThemePreview() {
 @Composable
 fun JPFinderDarkThemePreview() {
     JPFinderTheme(useDarkTheme = true) {
-        JPFinderTopBar(R.string.app_name,true, {})
+        JPFinderTopBar(stringResource( R.string.app_name),true, {})
     }
 }

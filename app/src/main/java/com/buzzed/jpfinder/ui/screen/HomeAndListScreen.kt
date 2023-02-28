@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -34,6 +32,8 @@ fun HomeAndListScreen(
 
 ) {
     val homeUiState by homeViewModel.uiState.collectAsState()
+    val community by remember { mutableStateOf(homeUiState.selectedCommunity)}
+    ListAndDetailDestination.community = community
 
     if(windowSize == WindowWidthSizeClass.Medium || windowSize == WindowWidthSizeClass.Expanded) {
         Row(

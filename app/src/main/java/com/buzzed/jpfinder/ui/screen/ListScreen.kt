@@ -1,7 +1,5 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -61,7 +60,7 @@ fun ListScreen(
     Scaffold(
         topBar = {
             JPFinderTopBar(
-                title = R.string.list_screen_title,//ListScreenDestination.titleRes,
+                title = "${stringResource( R.string.list_screen_title)}" +  " in $communityName" ,//ListScreenDestination.titleRes,
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateBack,
                 modifier = modifier
@@ -111,10 +110,10 @@ fun ListResults(
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp)
                     .clickable {
-                            if (results != null) {
-                                DetailsScreenDestination.jpId = results.id!!
-                                detailsClick(DetailsScreenDestination.jpId)
-                            }
+                        if (results != null) {
+                            DetailsScreenDestination.jpId = results.id!!
+                            detailsClick(DetailsScreenDestination.jpId)
+                        }
 
                     }
                     .height(50.dp),

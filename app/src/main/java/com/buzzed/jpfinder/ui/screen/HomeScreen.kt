@@ -3,18 +3,12 @@ package com.buzzed.jpfinder.ui.screen
 
 
 import android.content.Context
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,7 +18,6 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
-import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.parishList
 import com.buzzed.jpfinder.data.towns
 import com.buzzed.jpfinder.navigation.NavigationDestination
@@ -53,7 +46,7 @@ fun HomeScreen(
 Scaffold(
     topBar = {
         JPFinderTopBar(
-            title = R.string.app_name, //HomeDestination.titleRes,
+            title = stringResource( R.string.app_name), //HomeDestination.titleRes,
             canNavigateBack = false,
     )
     }
@@ -170,7 +163,7 @@ fun HomeScreenBody(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownMenuParish(
-    options: List<Int>,
+    options: List<String>,
     uiState: HomeUiState,
     viewModel: HomeViewModel,
     context: Context,
@@ -212,10 +205,10 @@ fun DropDownMenuParish(
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(
-                    { Text(stringResource(selectionOption)) },
+                    { Text(selectionOption) },
                     onClick = {
-                        viewModel.selectParish(context.getString(selectionOption))
-                        selectedOptionText = context.getString(selectionOption)
+                        viewModel.selectParish(selectionOption)
+                        selectedOptionText = selectionOption
                         expanded = false
                         //viewModel.enableCommunity()
                     },
@@ -231,7 +224,7 @@ fun DropDownMenuParish(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownMenuCommunity(
-    options: List<Int>,
+    options: List<String>,
     uiState: HomeUiState,
     viewModel: HomeViewModel,
     context: Context,
@@ -273,10 +266,10 @@ fun DropDownMenuCommunity(
         ) {
             options.forEach { selectionOption ->
                 DropdownMenuItem(
-                    { Text(stringResource(selectionOption)) },
+                    { Text(selectionOption) },
                     onClick = {
-                        viewModel.selectCommunity(context.getString(selectionOption))
-                        selectedOptionText = context.getString(selectionOption)
+                        viewModel.selectCommunity(selectionOption)
+                        selectedOptionText = selectionOption
                         expanded = false
                         viewModel.enableButton()
                     },
@@ -324,7 +317,7 @@ fun FavoriteList(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val list = viewModel.getFavoriteJPs()
-        Log.d("Home Favorites List", "$list")
+
         if(list.isEmpty()){
             Text("No Favorites")
         }else {

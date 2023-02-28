@@ -4,170 +4,209 @@ import android.util.Log
 import com.buzzed.jpfinder.R
 
 
-fun towns(parish: String): Set<Int> {
+fun towns(parish: String): Set<String> {
 
 
 
             val montegoBayList = listOf(
-            R.string.glendevon,
-            R.string.norwood,
-            R.string.paridise,
-            R.string.westgreen,
-            R.string.iron_shore,
-            R.string.irwin,
-            R.string.lethe,
-            R.string.coral_gardens,
-            R.string.bogue_village,
-            R.string.goodwill,
-            R.string.gloucester_ave,
-            R.string.mt_horeb,
-            R.string.westgate,
-            R.string.bogue_heights,
-            R.string.mango_walk,
-            R.string.springfield,
-            R.string.cambridge,
-            R.string.fairfield_estate,
-            R.string.greenwood,
-            R.string.long_bay,
-            R.string.freeport,
-            R.string.anchovy,
-            R.string.granville,
-            R.string.bay_shore,
-            R.string.rose_hall,
-            R.string.rhyne_park,
-            R.string.cornwall_court,
-            R.string.mount_salem,
-            R.string.sunderland,
-            R.string.adelphi,
-            R.string.hopeton,
-            R.string.leaders_ave,
-            R.string.montepelier,
-            R.string.west_village,
-            R.string.rosemount,
-            R.string.green_pond,
-            R.string.little_river,
-            R.string.somerton,
-            R.string.lilliput,
-            R.string.reading,
-            R.string.wilshire,
-            R.string.catherine_hall,
-            R.string.coopers_hill,
-            R.string.unity_hall
+                "Adelphi",
+                "Albion",
+                "Anchorage",
+                "Anchovy",
+                "Barnett hheights",
+                "Barnett view",
+                "Beckersteth",
+                "Bogue Heights",
+                "Bogue Hill",
+                "Bogue Village",
+                "Brandon Hill",
+                "Cambridge",
+                "Cambrose",
+                "Catherine Hall",
+                "Catherine Mount",
+                "Chatham",
+                "Claude Clarke",
+                "Coral Gardens",
+                "Cornwall Courts",
+                "Cornwall Gardens",
+                "Dumfries",
+                "Dunbar",
+                "Elderslie",
+                "Estuary",
+                "Fairfield",
+                "Farm Heights",
+                "Flamstead",
+                "Flankers",
+                "Freeport",
+                "Garlands",
+                "Glendevon",
+                "Goodwill",
+                "Granville",
+                "Great River",
+                "Green Pond",
+                "Greenwood",
+                "Hampton",
+                "Hurlock",
+                "Ironshore",
+                "Irwin",
+                "Irwin Meadows",
+                "Irwindale",
+                "Johns Hall",
+                "Kempshot",
+                "Leaders",
+                "Lethe",
+                "Liliput",
+                "Lilliput",
+                "Little River",
+                "Lottery",
+                "Mafoota",
+                "Maldon",
+                "Mango Walk",
+                "Maroon Town",
+                "Montego Bay",
+                "Montego Hills",
+                "Montpelier",
+                "Morgan Road",
+                "Mount Horeb",
+                "Mount Salem",
+                "Mountpelier",
+                "Norwood",
+                "Norwood",
+                "Orange",
+                "Paradise",
+                "Pitfour",
+                "Point",
+                "Porto Bello",
+                "Queens Drive",
+                "Reading",
+                "Retirement",
+                "Rhyne Park",
+                "Roehampton",
+                "Rose Hall",
+                "Rose Heights",
+                "Rosehall",
+                "Rosemount",
+                "Salt Spring",
+                "Sign",
+                "Somerton",
+                "Spring Farm",
+                "Spring Gardens",
+                "Spring Mount",
+                "Springfield",
+                "Sunderland",
+                "Torado Heights",
+                "Tucker",
+                "Unity Hall",
+                "Welcome Hall",
+                "West Village",
+                "Westgate",
+                "Westgate Hills",
+                "Westgreen",
+                "White House",
+                "White Sands",
+                "Wiltshire",
 
-        )
+
+                ).sorted()
 
     val stCatherineList = listOf(
-        R.string.spanish_town,
-        R.string.old_harbour,
-        R.string.linstead,
-        R.string.bog_walk,
-        R.string.ewarton,
-        R.string.old_harbour_bay,
-        R.string.point_hill,
-        R.string.above_rocks,
-        R.string.riversdale,
-        R.string.guys_hill,
-        R.string.lluidas_vale,
-        R.string.glengoffe,
-        R.string.troja,
-        R.string.central_village,
-        R.string.sligoville,
-        R.string.kitson_town
+        "Spanish Town",
+        "Old Harbour",
+        "Linstead",
+        "Bog Walk",
+        "Ewarton",
+        "Old Harbour Bay",
+        "Point Hill",
+        "Above Rocks",
+       "Riversdale",
+        "Guys Hill",
+       "Lluidas Vale",
+        "Glengoffe",
+        "Troja",
+        "Central Village",
+        "Sligoville",
+        "Kitson Town"
 
     ).sorted()
 
    val clarendonList = listOf(
-       R.string.alston,
-       R.string.ashley,
-       R.string.birds_hill,
-       R.string.borobridge,
-       R.string.bushy_park,
-       R.string.canaan_heights,
-       R.string.chapleton,
-       R.string.chateau,
-       R.string.coates_pen,
-       R.string.coffee_piece,
-       R.string.colonels_ridge,
-       R.string.coxwain,
-       R.string.crawl_river,
-       R.string.crofts_hill,
-       R.string.crooked_river,
-
-
-
-
-
-               /*
-                cumberland
-                Denbigh
-                four path
-                four paths
-                Frankfield
-                franklyn
-                free town
-                georges pen
-                gimme-me-bit
-                glenmuir road
-                gloucester
-                grantham
-                gravel hill
-                green bottom
-                gregory
-                halse hall
-                harriston town
-                hartwell gardens
-                hayes
-                hopefield
-                howella content
-                inglewood
-                jackson street
-                james hill
-                kellits
-                lionel town
-                longlook
-                longville
-                May Pen
-                menie
-                milk river
-                mineral heights
-                mitchell town
-                mocho
-                moneymusk
-                moores
-                moravia
-                morgans pass
-                new bowers
-                new longsville
-                new longville
-                new paisely
-                nine turns
-                osbourne store
-                palmers cross
-                peckham
-                pennants
-                portland cottage
-                race course
-                richmond park
-                rock river
-                rockford
-                rocky point
-                sandy bay
-                sanguinetti
-                scotts pass
-                smithville
-                spalding
-                st georges
-                stewarton
-                thompson town
-                tollgate
-                top hill
-                treadlight
-                trout hall
-                tweedside
-                twin palms
-                witney
-                wood hall
-                york town*/
+       "Alston",
+       "Ashley",
+       "Birds Hill",
+       "Borobridge",
+       "Bushy Park",
+       "Canaan Heights",
+       "Chapleton",
+       "Chateau",
+       "Coates Pen",
+       "Coffee Piece",
+       "Colonels Ridge",
+       "Coxwain",
+       "Crawl River",
+       "Crofts Hill",
+       "Crooked River",
+       "gimme-me-bit",
+       "glenmuir road",
+       "gloucester",
+       "grantham",
+       "gravel hill",
+       "green bottom",
+       "gregory",
+       "halse hall",
+       "harriston town",
+       "hartwell gardens",
+       "hayes",
+       "hopefield",
+       "howella content",
+       "inglewood",
+       "jackson street",
+       "james hill",
+       "kellits",
+       "lionel town",
+       "longlook",
+       "longville",
+       "May Pen",
+       "menie",
+       "milk river",
+       "mineral heights",
+       "mitchell town",
+       "mocho",
+       "moneymusk",
+       "moores",
+       "moravia",
+       "morgans pass",
+       "new bowers",
+       "new longsville",
+       "new longville",
+       "new paisely",
+       "nine turns",
+       "osbourne store",
+       "palmers cross",
+       "peckham",
+       "pennants",
+       "portland cottage",
+       "race course",
+       "richmond park",
+       "rock river",
+       "rockford",
+       "rocky point",
+       "sandy bay",
+       "sanguinetti",
+       "scotts pass",
+       "smithville",
+       "spalding",
+       "st georges",
+       "stewarton",
+       "thompson town",
+       "tollgate",
+       "top hill",
+       "treadlight",
+       "trout hall",
+       "tweedside",
+       "twin palms",
+       "witney",
+       "wood hall",
+       "york town"
 
     ).sorted()
 
@@ -177,9 +216,9 @@ fun towns(parish: String): Set<Int> {
         //return montegoBayList.sorted().toSet()
 
     when(parish.lowercase()) {
-        "st james" -> {return montegoBayList.toSet()}
-        "st catherine" -> {return stCatherineList.toSet()}
-        "clarendon" -> {return clarendonList.toSet()}
+        "st james" -> {return montegoBayList.sorted().toSet()}
+        "st catherine" -> {return stCatherineList.sorted().toSet()}
+        "clarendon" -> {return clarendonList.sorted().toSet()}
     }
 
 

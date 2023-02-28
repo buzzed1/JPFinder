@@ -1,6 +1,5 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,23 +7,25 @@ import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.JPRepository
 import com.buzzed.jpfinder.data.UserPreferencesRepository
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
-
-
 class DetailsScreenViewModel(
     savedStateHandle: SavedStateHandle,
-    jpRepository: JPRepository,
-    val userPreferencesRepository: UserPreferencesRepository
+    private val jpRepository: JPRepository,
+    private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
 
     private var _uiState = MutableStateFlow(DetailUiState())
 
     val uiState: StateFlow<DetailUiState> = _uiState
+
+    private var _oneJP = MutableStateFlow(OneJp())
+        private set
+
+    private val oneJPstate: StateFlow<OneJp> = _oneJP.asStateFlow()
 
     val detailUiState: StateFlow<DetailUiState> = jpRepository.getAllJPStream().map {
         DetailUiState(it)}
@@ -35,41 +36,37 @@ class DetailsScreenViewModel(
             initialValue = DetailUiState()
         )
 
-    val userPrefUiState: StateFlow<UserPrefUiState> = userPreferencesRepository.isFavorited.map { isFavorited ->
-        UserPrefUiState(isFavorited)
-    } .stateIn(
-        scope = viewModelScope,
-        started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-        initialValue = UserPrefUiState(false)
-    )
 
 
-     private var jpFromId: JP? = null
 
-     private val favoriteJPList = mutableListOf<JP>()
+      private var jpFromId: JP? = null //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
+
+      private val favoriteJPList = mutableListOf<JP>()
 
 
-    init {
-        viewModelScope.launch(Dispatchers.IO) {
-            jpFromId = jpRepository.getJPStream(DetailsScreenDestination.jpId)
-        }
+   fun getFilteredJP(): JP? {
+      filterJP()
+
+     return oneJPstate.value.jp
+   }
+
+     fun filterJP() {
+         viewModelScope.launch(Dispatchers.IO) {
+             jpFromId = jpRepository.getJPStream(DetailsScreenDestination.jpId)
+         }
+
+       _oneJP.update {currentState ->
+           currentState.copy(
+              jp = jpFromId
+           )
+       }
+
 
     }
 
-    fun getFilteredJP(): JP? {
-       return jpFromId
+    fun updateJp(name: String) {
+
     }
-
-//    fun filterJP(): JP {
-//        val filteredJP = JP(0,"","","","","","","")
-//
-//
-//        return filteredJP
-//    }
-
-//    fun updateJp(name: String) {
-//
-//    }
 
     fun setFavoriteJP(isFavorited: Boolean, jp: JP) {
         val userPref = userPreferencesRepository
@@ -78,12 +75,10 @@ class DetailsScreenViewModel(
         }
         favoriteJPList.add(jp)
         FavoriteJP(favoriteJPList)
-        Log.d("Set Favorite", "$favoriteJPList")
 
     }
 
     fun getFavoriteJPs(): List<JP> {
-        Log.d("Return Favorites", "$favoriteJPList")
         return favoriteJPList
     }
 
@@ -102,4 +97,8 @@ data class UserPrefUiState (
 
 data class FavoriteJP (
     val jpList: List<JP> = listOf()
+        )
+
+data class OneJp (
+    val jp: JP? = null
         )

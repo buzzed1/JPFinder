@@ -1,12 +1,8 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.util.Log
-import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.data.JP
-import com.buzzed.jpfinder.data.JPDao
 import com.buzzed.jpfinder.data.JPRepository
 import kotlinx.coroutines.flow.*
 
@@ -37,8 +33,6 @@ class ListScreenViewModel(
             }
         }
 
-        Log.d("filterJPInCommunity","list size: ${list.size}")
-        Log.d("filterJPInCommunity","list: $list")
         return list
     }
 

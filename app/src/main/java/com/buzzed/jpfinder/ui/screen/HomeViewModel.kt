@@ -21,7 +21,7 @@ class HomeViewModel(
     val uiState: StateFlow<HomeUiState> = _uiState
 
 
-    fun updateLists(pList: List<Int>, cList: Set<Int> ) {
+    fun updateLists(pList: List<String>, cList: Set<String> ) {
         _uiState.update {currentState ->
         currentState.copy(
             parishList = pList,
@@ -95,8 +95,8 @@ class HomeViewModel(
 }
 
 data class HomeUiState(
-    val parishList: List<Int> = listOf(),
-    val communityList: Set<Int> = setOf(),
+    val parishList: List<String> = listOf(),
+    val communityList: Set<String> = setOf(),
     val selectedParish: String = "",
     val selectedCommunity: String = "",
     val enabledCommunity: Boolean = false,

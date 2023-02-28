@@ -4,6 +4,6 @@ import androidx.annotation.StringRes
 
 
 data class Parish(
-    @StringRes val name: Int
+     val name: String
 )
 

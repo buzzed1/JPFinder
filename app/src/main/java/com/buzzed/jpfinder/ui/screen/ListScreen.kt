@@ -60,7 +60,7 @@ fun ListScreen(
     Scaffold(
         topBar = {
             JPFinderTopBar(
-                title = "${stringResource( R.string.list_screen_title)}" +  " in $communityName" ,//ListScreenDestination.titleRes,
+                title = stringResource( R.string.list_screen_title) +  " in $communityName" ,//ListScreenDestination.titleRes,
                 canNavigateBack = canNavigateBack,
                 navigateUp = onNavigateBack,
                 modifier = modifier

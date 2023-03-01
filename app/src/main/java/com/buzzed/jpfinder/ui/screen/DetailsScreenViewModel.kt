@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
 class DetailsScreenViewModel(
     savedStateHandle: SavedStateHandle,
     private val jpRepository: JPRepository,
-    private val userPreferencesRepository: UserPreferencesRepository
 ) : ViewModel() {
 
 
@@ -69,10 +68,7 @@ class DetailsScreenViewModel(
     }
 
     fun setFavoriteJP(isFavorited: Boolean, jp: JP) {
-        val userPref = userPreferencesRepository
-        viewModelScope.launch {
-            userPref.saveFavorited(isFavorited)
-        }
+
         favoriteJPList.add(jp)
         FavoriteJP(favoriteJPList)
 

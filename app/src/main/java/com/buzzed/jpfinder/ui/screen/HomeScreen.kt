@@ -3,12 +3,14 @@ package com.buzzed.jpfinder.ui.screen
 
 
 import android.content.Context
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -76,57 +78,60 @@ fun HomeScreenBody(
     val context = LocalContext.current
     val parishLabel = "Select Parish"
     val communityLabel = "Select Community"
+    val configuration = LocalConfiguration.current
 
 
 
+    when(configuration.orientation) {
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        Configuration.ORIENTATION_PORTRAIT -> {
+        Column(
+            modifier = modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(20.dp)
 
-    ) {
-        Card(
-            colors = CardDefaults.cardColors(
-                containerColor = MaterialTheme.colorScheme.surface,
-                contentColor = MaterialTheme.colorScheme.secondary
-            ),
-            modifier = modifier.height(400.dp)
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(20.dp)
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.secondary
+                ),
+                modifier = modifier.height(400.dp)
             ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
 
 
-                Text(
-                    text = "Please Select Options Below",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    style = MaterialTheme.typography.headlineSmall
-                )
+                    Text(
+                        text = "Please Select Options Below",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.headlineSmall
+                    )
 
-                Divider()
+                    Divider()
 
-                DropDownMenuParish(
-                    parishList,
-                    homeUiState,
-                    viewModel,
-                    context,
-                    parishLabel,
-                )
-                Spacer(modifier = Modifier.width(10.dp))
-                DropDownMenuCommunity(
-                    communityList.toList(),
-                    homeUiState,
-                    viewModel,
-                    context,
-                    communityLabel,
-                )
+                    DropDownMenuParish(
+                        parishList,
+                        homeUiState,
+                        viewModel,
+                        context,
+                        parishLabel,
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    DropDownMenuCommunity(
+                        communityList.toList(),
+                        homeUiState,
+                        viewModel,
+                        context,
+                        communityLabel,
+                    )
 
-                Divider()
+                    Divider()
 
                     Button(
                         modifier = Modifier,
@@ -144,20 +149,105 @@ fun HomeScreenBody(
                         Text(
                             text = "Find JPs",
                             fontWeight = FontWeight.Bold,
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = if(homeUiState.enabledButton) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground
                         )
                     }
 
-               //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
+                    //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
+                }
+
             }
 
+            Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
+
+
+                bannerAds(context = context)
+            }
         }
 
-        Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
+        } else -> {
+        Column(
+            modifier = modifier
+                .fillMaxSize(1f)
+                .padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            //verticalArrangement = Arrangement.spacedBy(20.dp)
+
+        ) {
+           Row() {
 
 
-            bannerAds(context = context)
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    contentColor = MaterialTheme.colorScheme.secondary
+                ),
+                modifier = modifier.height(400.dp)
+            ) {
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                   // verticalArrangement = Arrangement.spacedBy(20.dp)
+                ) {
+
+
+                    Text(
+                        text = "Please Select Options Below",
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.headlineSmall
+                    )
+
+                    Divider()
+
+                    DropDownMenuParish(
+                        parishList,
+                        homeUiState,
+                        viewModel,
+                        context,
+                        parishLabel,
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    DropDownMenuCommunity(
+                        communityList.toList(),
+                        homeUiState,
+                        viewModel,
+                        context,
+                        communityLabel,
+                    )
+
+                    Divider()
+
+                    Button(
+                        modifier = Modifier,
+                        shape = RoundedCornerShape(8.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
+                        onClick = {
+                            ListScreenDestination.communityArg = homeUiState.selectedCommunity
+                            onNavigateToList()
+
+                        },
+                        enabled = homeUiState.enabledButton,
+
+                        ) {
+
+                        Text(
+                            text = "Find JPs",
+                            fontWeight = FontWeight.Bold,
+                            color = if(homeUiState.enabledButton) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onBackground
+                        )
+                    }
+
+                    //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
+                }
+                Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
+                    bannerAds(context = context)
+                }
+            }
+
+
         }
+        }
+    }
     }
 }
 
@@ -340,6 +430,6 @@ fun FavoriteList(
 fun HomeScreenPreview() {
 
     JPFinderTheme {
-        //HomeScreen( { },false )
+        HomeScreen( { },{},false )
     }
 }

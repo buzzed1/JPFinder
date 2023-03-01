@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val jpRepository: JPRepository,
-    private val userPreferencesRepository: UserPreferencesRepository
     ) : ViewModel() {
 
 
@@ -62,13 +61,7 @@ class HomeViewModel(
         return _uiState.value.selectedCommunity
     }
 
-    fun enableCommunity() {
-        _uiState.update {currentState ->
-        currentState.copy(
-            enabledCommunity = true
-        )
-        }
-    }
+
 
     fun enableButton() {
         _uiState.update { currentState ->
@@ -78,13 +71,6 @@ class HomeViewModel(
         }
     }
 
-    fun getEnabledCommunity(): Boolean {
-        return _uiState.value.enabledCommunity
-    }
-
-    fun getEnabledButton(): Boolean {
-        return _uiState.value.enabledButton
-    }
 
 
 

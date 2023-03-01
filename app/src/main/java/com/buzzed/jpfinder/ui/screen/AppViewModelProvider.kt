@@ -13,8 +13,6 @@ object AppViewModelProvider {
         initializer {
             HomeViewModel(
                 JPFinderApplication().container.jpRepository,
-                JPFinderApplication().userPreferencesRepository
-
             )
         }
 
@@ -28,7 +26,6 @@ object AppViewModelProvider {
             DetailsScreenViewModel(
                 this.createSavedStateHandle(),
                 JPFinderApplication().container.jpRepository,
-                JPFinderApplication().userPreferencesRepository
             )
         }
 

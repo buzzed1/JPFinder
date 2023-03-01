@@ -57,7 +57,7 @@ fun JPFinderTopBar(
                     onClick = navigateUp ) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Back Button"
+                        contentDescription = "Back"
                     )
                 }
             },

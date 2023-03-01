@@ -20,52 +20,54 @@ fun JPFinderNavHost(
 
    NavHost(
         navController = navController,
-        startDestination = HomeAndListDestination.route,
+        startDestination = HomeDestination.route,
         modifier = modifier
     )
     {
 
+//            composable(
+//                route = HomeAndListDestination.route
+//            ) {
+//
+//                HomeAndListScreen(
+//                    communityName = communityArg,
+//                    onNavigateToList = { navController.navigate(ListScreenDestination.routeWithArgs)},
+//                    findJPClick = {},
+//                    onNavigateBack = { navController.popBackStack() },
+//                    onDetailsClick = { navController.navigate(ListAndDetailDestination.route) },
+//                    onFavoriteDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
+//                    windowSize = windowSize
+//
+//                )
+//            }
+//            composable(
+//                route = ListAndDetailDestination.route
+//            ) {
+//
+//                ListAndDetailScreen(
+//                    windowSize = windowSize,
+//                    onNavigateBack = { navController.popBackStack() },
+//                    id = DetailsScreenDestination.jpId,
+//                    isLargeSize = true,
+//                    onDetailsClick = {},
+//                    canNavigateBack = false
+//
+//                )
+//            }
+
+
+
             composable(
-                route = HomeAndListDestination.route
-            ) {
-
-                HomeAndListScreen(
-                    communityName = communityArg,
-                    onNavigateToList = { navController.navigate(ListScreenDestination.routeWithArgs)},
-                    findJPClick = {},
-                    onNavigateBack = { navController.popBackStack() },
-                    onDetailsClick = { navController.navigate(ListAndDetailDestination.route) },
-                    onFavoriteDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
-                    windowSize = windowSize
-
-                )
-            }
-            composable(
-                route = ListAndDetailDestination.route
-            ) {
-
-                ListAndDetailScreen(
-                    windowSize = windowSize,
-                    onNavigateBack = { navController.popBackStack() },
-                    id = DetailsScreenDestination.jpId,
-                    isLargeSize = true,
-                    onDetailsClick = {},
-                    canNavigateBack = false
-
-                )
-            }
-
-
-
-           /* composable(
                 route = HomeDestination.route
             ) {
                 HomeScreen(
                     onNavigateToList = {
                         navController.navigate(ListScreenDestination.routeWithArgs)
-                    })
-            }*/
-
+                    },
+                    onDetailsClick = { },
+                    isLargeSize = false
+                )
+            }
         composable(
             route = ListScreenDestination.routeWithArgs,
             arguments = ListScreenDestination.arguments,

@@ -17,12 +17,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.navigation.NavigationDestination
+
 
 
 object DetailsScreenDestination: NavigationDestination {
@@ -114,6 +116,8 @@ fun DetailsScreen(
 
                 }
 
+
+
 //                    IconToggleButton(
 //                        checked = checkedState.value,
 //                        onCheckedChange = {fave ->
@@ -171,7 +175,12 @@ fun DetailsScreen(
 //
 //                    }
                 }
+            Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
+                bannerAds(context = context)
             }
+
+            }
+
         }
 }
 
@@ -301,6 +310,7 @@ private fun composeEmail(address: Array<String>, subject: String, context: Conte
         startActivity(context,intent,null)
     }
 }
+
 
 
 

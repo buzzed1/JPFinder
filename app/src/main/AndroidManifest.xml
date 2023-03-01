@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.JPFinder"
         android:enableOnBackInvokedCallback="true"
-        tools:targetApi="31">
+        tools:targetApi="tiramisu">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -27,7 +27,7 @@
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4971881238973635~7719250870"/>
+            android:value="ca-app-pub-4971881238973635~7719250870"/> <!--"ca-app-pub-4971881238973635~7719250870" -->
     </application>
 
 </manifest>

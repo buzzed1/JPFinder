@@ -127,9 +127,7 @@ fun HomeScreenBody(
                 )
 
                 Divider()
-                if (isLargeSize){
 
-                }else {
                     Button(
                         modifier = Modifier,
                         shape = RoundedCornerShape(8.dp),
@@ -142,19 +140,24 @@ fun HomeScreenBody(
                         enabled = homeUiState.enabledButton,
 
                         ) {
+
                         Text(
                             text = "Find JPs",
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
                     }
-                }
+
                //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
             }
 
         }
 
-        bannerAds(context = context)
+        Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
+
+
+            bannerAds(context = context)
+        }
     }
 }
 
@@ -287,7 +290,8 @@ fun DropDownMenuCommunity(
 fun bannerAds(context: Context) {
     Column(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .height(48.dp),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -297,7 +301,7 @@ fun bannerAds(context: Context) {
             factory = { context ->
                 AdView(context).apply {
                    setAdSize(AdSize.BANNER)
-                    adUnitId = "ca-app-pub-3940256099942544/6300978111"
+                    adUnitId = "ca-app-pub-4971881238973635/7183832741"//"ca-app-pub-3940256099942544/6300978111"
                     loadAd(AdRequest.Builder().build())
                 }
             }

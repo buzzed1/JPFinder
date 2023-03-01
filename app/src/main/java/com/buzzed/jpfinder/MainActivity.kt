@@ -16,9 +16,11 @@ import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.interstitial.InterstitialAd
 
 
 class MainActivity : ComponentActivity() {
+
 
     @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +33,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MobileAds.initialize(this){}
+
 
                     val windowSize = calculateWindowSizeClass(this)
                     JPFinderApp(windowSize = windowSize.widthSizeClass)

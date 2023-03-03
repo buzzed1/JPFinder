@@ -504,7 +504,7 @@ fun JpDetailsWide(jp: JP?,headLineTextSize: TextUnit,infoTextSize: TextUnit, mod
                     ) {
                         Text(
                             "${jp?.emailAddress}",
-                            modifier = Modifier.clickable { },
+                            modifier = Modifier,
                             fontSize = headLineTextSize
                         )
                     }
@@ -530,9 +530,15 @@ private fun composeEmail(address: Array<String>, subject: String, context: Conte
         putExtra(Intent.EXTRA_EMAIL, address)
         putExtra(Intent.EXTRA_SUBJECT, subject)
     }
-    if (intent.resolveActivity(packageManager) != null) {
-        startActivity(context,intent,null)
-    }
+    context.startActivity(
+        Intent.createChooser(
+            intent,
+            context.getString(R.string.choose_email)
+        )
+    )
+//    if (intent.resolveActivity(packageManager) != null) {
+//        startActivity(context,intent,null)
+//    }
 }
 
 

@@ -109,24 +109,24 @@ fun towns(parish: String): Set<String> {
                 )
 
     val stCatherineList = listOf(
-        "Spanish Town",
-        "Old Harbour",
-        "Linstead",
+        "Above Rocks",
         "Bog Walk",
+        "Central Village",
         "Ewarton",
+        "Glengoffe",
+        "Guys Hill",
+        "Kitson Tow",
+        "Linstead",
+        "Lluidas Vale",
+        "Old Harbour",
         "Old Harbour Bay",
         "Point Hill",
-        "Above Rocks",
-       "Riversdale",
-        "Guys Hill",
-       "Lluidas Vale",
-        "Glengoffe",
-        "Troja",
-        "Central Village",
+        "Riversdale",
         "Sligoville",
-        "Kitson Town"
+        "Spanish Town",
+        "Troja"
 
-    ).sorted()
+    )
 
    val clarendonList = listOf(
        "Alston",

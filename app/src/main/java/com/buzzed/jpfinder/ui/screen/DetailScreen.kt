@@ -403,7 +403,7 @@ fun JpDetails(jp: JP?,headLineTextSize: TextUnit,infoTextSize: TextUnit, modifie
                        ) {
                            Text(
                                "${jp?.emailAddress}",
-                               modifier = Modifier.clickable { },
+                               modifier = Modifier,
                                fontSize = headLineTextSize
                            )
                        }

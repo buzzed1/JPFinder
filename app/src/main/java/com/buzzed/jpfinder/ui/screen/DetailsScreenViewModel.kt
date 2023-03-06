@@ -40,7 +40,7 @@ class DetailsScreenViewModel(
             initialValue = DetailUiState()
         )
 
-    val favoriteState: StateFlow<FavoriteJP> = jpRepository.getFavoriteJPs()
+    private val favoriteState: StateFlow<FavoriteJP> = jpRepository.getFavoriteJPs()
         .map {
             FavoriteJP(it) }
         .filterNotNull()
@@ -55,6 +55,8 @@ class DetailsScreenViewModel(
       private var jpFromId: JP? = JP(null,"Loading","Loading","Loading","Loading","Loading","Loading","Loading") //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
 
       private val favoriteJPList = mutableListOf<JP>()
+
+    private var favorites = mutableMapOf<JP,Boolean>()
 
 
    fun getFilteredJP(): JP? {
@@ -85,27 +87,27 @@ class DetailsScreenViewModel(
     }
 
     fun setFavoriteJP(isFavorited: Boolean, jp: JP) {
-
-        val newList = mutableListOf<Pair<JP,Boolean>>()
+        val newList = mutableListOf<JP>()
         if (isFavorited) {
-                val newJP =  jp.copy(isFavorited = true)
+                val newJP =  jp.copy(isFavorited = isFavorited)
                 viewModelScope.launch(Dispatchers.IO) {
                     jpRepository.updateJP(newJP)
                 }
-            val pair = Pair(jp,isFavorited)
-            newList.add(pair)
+            newList.add(newJP)
             }
+        favorites.put(jp,isFavorited)
 
         _favoriteJpState.update { favoriteJP ->
             favoriteJP.copy(
                 jpList = newList
             )
-        }
+         }
         }
 
 
-    fun getFavoriteJPs(): List<Pair<JP, Boolean>> {
-        Log.d("getFavoriteJPs","${favoriteState.value.jpList}")
+    fun getFavoriteJPs(): List<JP> {
+        Log.d("getFavoriteJPs List","${favoriteState.value.jpList}")
+        Log.d("getFavoriteJPs","${favorites}")
         return favoriteState.value.jpList
     }
 
@@ -120,7 +122,7 @@ data class DetailUiState(
 
 
 data class FavoriteJP (
-    val jpList: List<Pair<JP,Boolean>> = listOf(),
+    val jpList: List<JP> = listOf(),
     //val checkedState: Boolean = false
         )
 

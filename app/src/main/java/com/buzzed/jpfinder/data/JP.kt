@@ -22,7 +22,5 @@ data class JP(
      val community: String?,
      @ColumnInfo(name = "email")
      val emailAddress: String?,
-     @ColumnInfo(name = "isfavorited", defaultValue = "false" )
-     var isFavorited: Boolean = false
 )
 

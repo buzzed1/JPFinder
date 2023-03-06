@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
-import android.util.Log
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.clickable
@@ -17,7 +16,6 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -79,9 +77,7 @@ fun DetailsScreen(
     val jp = viewModel.getFilteredJP()
     addresses[0] = (jp?.emailAddress.toString())
 
-    val favoriteList = viewModel.getFavoriteJPs()
-
-    val checkedState = rememberSaveable { mutableStateOf(false) }
+    val checkedState = remember { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
 
     Scaffold(
@@ -306,8 +302,7 @@ fun DetailsScreen(
                                 }
                             Column(
                                 verticalArrangement = Arrangement.Bottom,
-                                modifier = Modifier
-                                    .fillMaxHeight()
+                                modifier = Modifier.fillMaxHeight()
                                     .padding(end = 10.dp, bottom = 5.dp),
                                 horizontalAlignment = Alignment.Start
                             ) {

@@ -1,6 +1,5 @@
 package com.buzzed.jpfinder.ui.screen
 
-import android.util.Log
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,36 +26,21 @@ class DetailsScreenViewModel(
 
     private val oneJPstate: StateFlow<OneJp> = _oneJP.asStateFlow()
 
-    private var _favoriteJpState = MutableStateFlow(FavoriteJP())
-
-    val favoriteJpState: StateFlow<FavoriteJP> = _favoriteJpState.asStateFlow()
-
     val detailUiState: StateFlow<DetailUiState> = jpRepository.getAllJPStream().map {
         DetailUiState(it)}
         .filterNotNull()
         .stateIn(
             scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
+            started = SharingStarted.WhileSubscribed(DetailsScreenViewModel.TIMEOUT_MILLIS),
             initialValue = DetailUiState()
         )
 
-    private val favoriteState: StateFlow<FavoriteJP> = jpRepository.getFavoriteJPs()
-        .map {
-            FavoriteJP(it) }
-        .filterNotNull()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-            initialValue = FavoriteJP()
-        )
 
 
 
       private var jpFromId: JP? = JP(null,"Loading","Loading","Loading","Loading","Loading","Loading","Loading") //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
 
       private val favoriteJPList = mutableListOf<JP>()
-
-    private var favorites = mutableMapOf<JP,Boolean>()
 
 
    fun getFilteredJP(): JP? {
@@ -79,36 +63,19 @@ class DetailsScreenViewModel(
 
     }
 
-    /*
-    Update the database and set isfavorite as true
-     */
-    suspend fun updateJp(jp: JP) {
+    fun updateJp(name: String) {
 
     }
 
     fun setFavoriteJP(isFavorited: Boolean, jp: JP) {
-        val newList = mutableListOf<JP>()
-        if (isFavorited) {
-                val newJP =  jp.copy(isFavorited = isFavorited)
-                viewModelScope.launch(Dispatchers.IO) {
-                    jpRepository.updateJP(newJP)
-                }
-            newList.add(newJP)
-            }
-        favorites.put(jp,isFavorited)
 
-        _favoriteJpState.update { favoriteJP ->
-            favoriteJP.copy(
-                jpList = newList
-            )
-         }
-        }
+        favoriteJPList.add(jp)
+        FavoriteJP(favoriteJPList)
 
+    }
 
     fun getFavoriteJPs(): List<JP> {
-        Log.d("getFavoriteJPs List","${favoriteState.value.jpList}")
-        Log.d("getFavoriteJPs","${favorites}")
-        return favoriteState.value.jpList
+        return favoriteJPList
     }
 
     companion object {
@@ -120,10 +87,12 @@ data class DetailUiState(
     val jpFiltered: List<JP?> = listOf(),
     )
 
+data class UserPrefUiState (
+    val isFavorited: Boolean
+        )
 
 data class FavoriteJP (
-    val jpList: List<JP> = listOf(),
-    //val checkedState: Boolean = false
+    val jpList: List<JP> = listOf()
         )
 
 data class OneJp (

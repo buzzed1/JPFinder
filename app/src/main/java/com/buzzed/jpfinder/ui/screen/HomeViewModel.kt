@@ -1,14 +1,10 @@
 package com.buzzed.jpfinder.ui.screen
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.JPRepository
-import com.buzzed.jpfinder.data.UserPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val jpRepository: JPRepository,

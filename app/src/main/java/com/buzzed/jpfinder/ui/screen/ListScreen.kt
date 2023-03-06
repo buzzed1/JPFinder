@@ -1,5 +1,6 @@
 package com.buzzed.jpfinder.ui.screen
 
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -57,6 +58,7 @@ fun ListScreen(
     val itemList = listViewModel.filterJpInCommunity(communityName)
     val context = LocalContext.current
 
+
     Scaffold(
         topBar = {
             JPFinderTopBar(
@@ -80,7 +82,7 @@ fun ListScreen(
                     if(itemList.isEmpty()){
                         EmptyListResults()
                     } else {
-                        if (item.community?.lowercase() == communityName?.lowercase()) {
+                        if (item.community?.lowercase()?.trim() == communityName?.lowercase()) {
                             ListResults(item, onDetailsClick)
                         }
                     }

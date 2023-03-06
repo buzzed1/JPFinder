@@ -1,5 +1,6 @@
 package com.buzzed.jpfinder.ui.screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.buzzed.jpfinder.data.JP
@@ -28,11 +29,10 @@ class ListScreenViewModel(
         //To Do: filter community list based on parish //
         val list = mutableListOf<JP>()
         listUiState.value.jpList.map {jp ->
-            if(jp.community?.lowercase() == communityName?.lowercase()) {
+            if(jp.community?.lowercase()?.trim() == communityName?.lowercase()) {
                 list.add(jp)
             }
         }
-
         return list
     }
 

@@ -270,7 +270,7 @@ fun towns(parish: String): Set<String> {
 
 
 
-    Log.d("parish", "$parish")
+
         //return montegoBayList.sorted().toSet()
 
     when(parish.lowercase()) {

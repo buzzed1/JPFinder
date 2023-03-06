@@ -38,7 +38,7 @@ class DetailsScreenViewModel(
 
 
 
-      private var jpFromId: JP? = null //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
+      private var jpFromId: JP? = JP(null,"Loading","Loading","Loading","Loading","Loading","Loading","Loading") //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
 
       private val favoriteJPList = mutableListOf<JP>()
 

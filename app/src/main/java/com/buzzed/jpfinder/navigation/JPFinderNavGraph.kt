@@ -1,6 +1,5 @@
 package com.buzzed.jpfinder.navigation
 
-import androidx.compose.material3.windowsizeclass.WindowSizeClass
 import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,39 +23,6 @@ fun JPFinderNavHost(
         modifier = modifier
     )
     {
-
-//            composable(
-//                route = HomeAndListDestination.route
-//            ) {
-//
-//                HomeAndListScreen(
-//                    communityName = communityArg,
-//                    onNavigateToList = { navController.navigate(ListScreenDestination.routeWithArgs)},
-//                    findJPClick = {},
-//                    onNavigateBack = { navController.popBackStack() },
-//                    onDetailsClick = { navController.navigate(ListAndDetailDestination.route) },
-//                    onFavoriteDetailsClick = {navController.navigate(DetailsScreenDestination.route)},
-//                    windowSize = windowSize
-//
-//                )
-//            }
-//            composable(
-//                route = ListAndDetailDestination.route
-//            ) {
-//
-//                ListAndDetailScreen(
-//                    windowSize = windowSize,
-//                    onNavigateBack = { navController.popBackStack() },
-//                    id = DetailsScreenDestination.jpId,
-//                    isLargeSize = true,
-//                    onDetailsClick = {},
-//                    canNavigateBack = false
-//
-//                )
-//            }
-
-
-
             composable(
                 route = HomeDestination.route
             ) {
@@ -86,7 +52,6 @@ fun JPFinderNavHost(
             //arguments = ListScreenDestination.arguments,
             //deepLinks = listOf(navDeepLink {uriPattern= "uri=android-app://androidx.navigation/list_screen?communityArg={${communityArg}}"})
         ){
-            //Log.d("ListScreen","$communityArg     ${it.arguments?.getString("community")}")
 
             DetailsScreen(
                 onNavigateUp = { navController.popBackStack() },

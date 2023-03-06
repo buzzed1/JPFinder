@@ -84,5 +84,4 @@ data class HomeUiState(
     val enabledCommunity: Boolean = false,
     val enabledButton: Boolean = false,
 
-
     )

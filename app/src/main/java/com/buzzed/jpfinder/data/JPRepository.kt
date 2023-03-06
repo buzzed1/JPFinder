@@ -15,6 +15,8 @@ interface JPRepository {
 
     fun getJpInCommunity(community: String): Flow<List<JP>>
 
+    fun getFavoriteJPs(): Flow<List<JP>>
+
     /**
      * Insert item in the data source
      */

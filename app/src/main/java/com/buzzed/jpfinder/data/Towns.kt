@@ -208,6 +208,66 @@ fun towns(parish: String): Set<String> {
 
     )
 
+    val trelawnyList = listOf(
+        "Albert Town",
+        "Bounty Hall",
+        "Browns Town",
+        "Bunkers Hill",
+        "Carrick Foyle",
+        "Clarks Town",
+        "Cold Spring",
+        "Coral Spring",
+        "Daniel Town",
+        "Davis Pen",
+        "Deeside",
+        "Dromilly District",
+        "Duanvale",
+        "Duncans",
+        "Falmouth",
+        "Falmouth Gdns",
+        "Flamingo Beach",
+        "Florence Hall",
+        "Gravel Hill",
+        "Green Park",
+        "Greenwood",
+        "Hague",
+        "Jackson Town",
+        "Joe Hut P.A.",
+        "Long Pond",
+        "Lorrimers",
+        "Lowe River",
+        "Martha Brae",
+        "Mount Carey",
+        "New Haven Heights",
+        "New Hope",
+        "Perth town",
+        "Refuge P.A.",
+        "Retreat Heights",
+        "Rio Bueno",
+        "Rock Spring",
+        "Sal Marsh",
+        "Salt Marsh",
+        "Sawyers District",
+        "Sherwood Content",
+        "Spicy Hill District",
+        "Spring Gdns",
+        "Springfield",
+        "St Ann's Bay",
+        "Stettin",
+        "Stewart Castle",
+        "Stewart Town",
+        "Trelawny",
+        "Troy",
+        "Vanzie Lands",
+        "Wait-a-Bit",
+        "Wakefield",
+        "Wakefield Dist",
+        "Warsop",
+        "Wiltshire",
+        "Wire Fence",
+
+        )
+
 
 
     Log.d("parish", "$parish")
@@ -216,7 +276,8 @@ fun towns(parish: String): Set<String> {
     when(parish.lowercase()) {
         "st james" -> {return montegoBayList.toSet()}
         "st catherine" -> {return stCatherineList.toSet()}
-        "clarendon" -> {return clarendonList.sorted().toSet()}
+        "clarendon" -> {return clarendonList.toSet()}
+        "trelawny" -> {return trelawnyList.toSet()}
     }
 
 

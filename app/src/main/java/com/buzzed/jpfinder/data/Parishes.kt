@@ -16,7 +16,7 @@ fun parishList(): List<String> {
         // R.string.st_elizabeth,
         "St James",
         // R.string.st_mary,
-        // R.string.trelawny,
+        "Trelawny",
         // R.string.westmoreland,
         // R.string.portland,
         // R.string.st_thomas

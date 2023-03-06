@@ -16,6 +16,4 @@ class OfflineJPRepository(private val jpDao: JPDao) : JPRepository {
 
     override fun getJpInCommunity(community: String): Flow<List<JP>> = jpDao.getJpInCommunity(community)
 
-    override fun getFavoriteJPs(): Flow<List<JP>> = jpDao.getFavoriteJPs()
-
 }

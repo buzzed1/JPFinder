@@ -17,3 +17,5 @@ app/debug/
 local.properties
 *.pem
 
+*.db-shm
+*.db-wal

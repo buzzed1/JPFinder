@@ -391,8 +391,8 @@ fun bannerAds(context: Context) {
             factory = { context ->
                 AdView(context).apply {
                    setAdSize(AdSize.BANNER)
-                    adUnitId = "ca-app-pub-4971881238973635/7183832741"//"ca-app-pub-3940256099942544/6300978111"
-                    loadAd(AdRequest.Builder().build())
+                    adUnitId = "ca-app-pub-4971881238973635/9090158392"//"ca-app-pub-3940256099942544/6300978111"
+                    loadAd(com.google.android.gms.ads.AdRequest.Builder().build())
                 }
             }
         )

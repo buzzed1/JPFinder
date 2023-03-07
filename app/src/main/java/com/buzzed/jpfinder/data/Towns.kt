@@ -269,15 +269,97 @@ fun towns(parish: String): Set<String> {
         )
 
 
+    val stAnnList = listOf(
+        "Aboukir",
+        "Alderton",
+        "Alexandria",
+        "Alva District",
+        "Bamboo",
+        "Battersea",
+        "Beecher Town",
+        "Bensonton",
+        "Beverly",
+        "Blackstonedge",
+        "Borobridge",
+        "Browns Town",
+        "Calderwood",
+        "Cardiiff Hall",
+        "Cascade District",
+        "Cave Valley",
+        "Charles Town",
+        "Chester",
+        "Claremont",
+        "Clydesdale",
+        "Colegate",
+        "Concord",
+        "Coolshade",
+        "Davis Town",
+        "Discovery Bay",
+        "Drax Hall",
+        "Epworth",
+        "Exchange",
+        "Free Hill District",
+        "Gibraltar",
+        "Glasgow",
+        "Hermitage",
+        "Hessen Castle",
+        "Higgin Town",
+        "Hopewell",
+        "Keith",
+        "Laughlands",
+        "Lime Hall",
+        "Lime Tree Garden",
+        "Linton Park",
+        "Llandovery",
+        "Lodge",
+        "Lydford",
+        "Maamee Bay",
+        "Madras",
+        "Mansfield Meadows",
+        "McNie",
+        "Moneague",
+        "Moriah",
+        "Mount Moriah",
+        "Mount Pleasant",
+        "Mount Zion",
+        "Nine Miles District",
+        "Ocho Rios",
+        "Oracabessa",
+        "Orange Hill",
+        "Port Maria",
+        "Priory",
+        "Prospect",
+        "Richmond",
+        "Rio Neuvo",
+        "Runaway Bay",
+        "Seville Heights",
+        "Shelly Piece",
+        "St. Ann",
+        "St. Anns Bay",
+        "St. Dacres",
+        "Steer Town",
+        "Sturge Town",
+        "Tanglewood",
+        "Three Hills",
+        "Tolgate",
+        "Tower Isle",
+        "Village Green",
+        "Walkerswood",
+        "Watt Town",
+        "Wild Cane",
+        "York Castle",
+
+        )
 
 
         //return montegoBayList.sorted().toSet()
 
     when(parish.lowercase()) {
         "st james" -> {return montegoBayList.toSet()}
-        "st catherine" -> {return stCatherineList.toSet()}
+        //"st catherine" -> {return stCatherineList.toSet()}
         "clarendon" -> {return clarendonList.toSet()}
         "trelawny" -> {return trelawnyList.toSet()}
+        "st ann" -> {return stAnnList.toSet()}
     }
 
 

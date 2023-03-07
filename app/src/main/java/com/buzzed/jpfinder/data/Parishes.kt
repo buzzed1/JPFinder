@@ -11,7 +11,7 @@ fun parishList(): List<String> {
         //R.string.kingston,
         //R.string.manchester,
         //R.string.st_andrew,
-        //R.string.st_ann,
+        "St Ann",
         //R.string.st_catherine,
         // R.string.st_elizabeth,
         "St James",

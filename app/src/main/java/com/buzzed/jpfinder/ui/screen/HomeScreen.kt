@@ -161,7 +161,7 @@ fun HomeScreenBody(
             Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
 
 
-                bannerAds(context = context)
+                BannerAds(context = context)
             }
         }
 
@@ -240,7 +240,7 @@ fun HomeScreenBody(
                     //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
                 }
                 Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
-                    bannerAds(context = context)
+                    BannerAds(context = context)
                 }
             }
 
@@ -377,7 +377,7 @@ fun DropDownMenuCommunity(
 
 
 @Composable
-fun bannerAds(context: Context) {
+fun BannerAds(context: Context) {
     Column(
         modifier = Modifier
             .fillMaxWidth()

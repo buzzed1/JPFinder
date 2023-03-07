@@ -197,7 +197,7 @@ fun DetailsScreen(
                             verticalArrangement = Arrangement.Bottom,
                             modifier = Modifier.fillMaxHeight()
                         ) {
-                            bannerAds(context = context)
+                            BannerAds(context = context)
                         }
 
                     }
@@ -311,7 +311,7 @@ fun DetailsScreen(
                                     .padding(end = 10.dp, bottom = 5.dp),
                                 horizontalAlignment = Alignment.Start
                             ) {
-                                bannerAds(context = context)
+                                BannerAds(context = context)
                             }
                         }
                     }

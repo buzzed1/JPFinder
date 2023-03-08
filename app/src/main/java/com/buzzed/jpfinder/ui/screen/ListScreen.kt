@@ -118,6 +118,7 @@ fun ListResults(
                         if (results != null) {
                             DetailsScreenDestination.jpId = results.id!!
                             detailsClick(DetailsScreenDestination.jpId)
+
                         }
 
                     }

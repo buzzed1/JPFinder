@@ -33,6 +33,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MobileAds.initialize(this){}
+                    loadInterstitial(this)
 
 
                     val windowSize = calculateWindowSizeClass(this)

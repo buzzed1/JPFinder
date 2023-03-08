@@ -20,7 +20,7 @@ abstract class JPFinderDatabase : RoomDatabase() {
             return INSTANCE ?: synchronized(this) {
                 Room.databaseBuilder(context, JPFinderDatabase::class.java, "jp_database")
                     .createFromAsset("database/jp_database.db")
-                    //.fallbackToDestructiveMigration()
+                    .fallbackToDestructiveMigration()
                     .build()
                     .also { INSTANCE = it }
             }

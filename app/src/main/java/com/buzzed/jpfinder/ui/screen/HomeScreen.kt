@@ -237,7 +237,7 @@ fun HomeScreenBody(
                         )
                     }
 
-                    //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
+                    FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
                 }
                 Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
                     BannerAds(context = context)

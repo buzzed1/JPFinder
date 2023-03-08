@@ -94,20 +94,27 @@ class DetailsScreenViewModel(
                     jpRepository.updateJP(newJP)
                 }
             newList.add(newJP)
+            favorites[newJP] = isFavorited
+            } else {
+            val newJP =  jp.copy(isFavorited = isFavorited)
+            viewModelScope.launch(Dispatchers.IO) {
+                jpRepository.updateJP(newJP)
             }
-        favorites.put(jp,isFavorited)
-
+            newList.remove(newJP)
+            favorites[newJP] = isFavorited
+        }
         _favoriteJpState.update { favoriteJP ->
             favoriteJP.copy(
                 jpList = newList
             )
          }
-        }
+
+    }
 
 
     fun getFavoriteJPs(): List<JP> {
-        Log.d("getFavoriteJPs List","${favoriteState.value.jpList}")
-        Log.d("getFavoriteJPs","${favorites}")
+//        Log.d("get Favorite", "${favoriteState.value.jpList}")
+//        Log.d("get Favorite", "${_favoriteJpState.value.jpList}")
         return favoriteState.value.jpList
     }
 

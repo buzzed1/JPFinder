@@ -28,7 +28,7 @@
         <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-4971881238973635~7719250870"/> <!--"ca-app-pub-4971881238973635~7719250870" -->
+            android:value="ca-app-pub-4971881238973635~1445534297"/> <!--"ca-app-pub-4971881238973635~7719250870" -->
         <meta-data
             android:name="firebase_performance_logcat_enabled"
             android:value="true" />

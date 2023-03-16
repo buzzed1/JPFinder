@@ -32,6 +32,7 @@ class ListScreenViewModel(
             if(jp.community?.lowercase()?.trim() == communityName?.lowercase()) {
                 list.add(jp)
             }
+
         }
         return list
     }

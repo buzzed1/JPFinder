@@ -24,7 +24,7 @@ interface JPDao {
         @Query("SELECT * from jp_list WHERE community = :community")
         fun getJpInCommunity(community: String): Flow<List<JP>>
 
-        @Query("SELECT * from jp_list WHERE isfavorited = true")
+        @Query("SELECT * from jp_list WHERE isfavorited = 1")
         fun getFavoriteJPs(): Flow<List<JP>>
 
 

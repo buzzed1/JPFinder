@@ -20,6 +20,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
+import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.parishList
 import com.buzzed.jpfinder.data.towns
 import com.buzzed.jpfinder.navigation.NavigationDestination
@@ -68,7 +69,6 @@ fun HomeScreenBody(
     onDetailsClick: (Int) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.factory),
-    detailsScreenViewModel: DetailsScreenViewModel = viewModel(factory = AppViewModelProvider.factory)
 ) {
     val homeUiState by viewModel.uiState.collectAsState()
     //val listUiState by listviewModel.uiState.collectAsState()
@@ -153,10 +153,11 @@ fun HomeScreenBody(
                         )
                     }
 
-                    //FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
+
                 }
 
             }
+            //FavoriteList(viewModel = viewModel, onDetailsClick = onDetailsClick  )
 
             Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
 
@@ -237,8 +238,10 @@ fun HomeScreenBody(
                         )
                     }
 
-                    FavoriteList(viewModel = detailsScreenViewModel, onDetailsClick = onDetailsClick  )
+
                 }
+                //FavoriteList(viewModel = viewModel, onDetailsClick = onDetailsClick)
+
                 Column(verticalArrangement = Arrangement.Bottom, modifier = Modifier.fillMaxHeight()) {
                     BannerAds(context = context)
                 }
@@ -381,7 +384,7 @@ fun BannerAds(context: Context) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .height(48.dp),
+            .height(70.dp),
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -402,12 +405,13 @@ fun BannerAds(context: Context) {
 
 @Composable
 fun FavoriteList(
-    viewModel: DetailsScreenViewModel,
+    viewModel: HomeViewModel,
     onDetailsClick: (Int)-> Unit,
 ){
     Column(
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .height(100.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         val list = viewModel.getFavoriteJPs()

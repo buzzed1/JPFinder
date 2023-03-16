@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.animation.animateColor
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.clickable
@@ -16,6 +17,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.rounded.AccountBox
 import androidx.compose.material3.*
+import androidx.compose.material3.AlertDialogDefaults.shape
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
@@ -79,7 +81,7 @@ fun DetailsScreen(
     val jp = viewModel.getFilteredJP()
     addresses[0] = (jp?.emailAddress.toString())
 
-    val favoriteList = viewModel.getFavoriteJPs()
+    val favorite = jp?.isFavorited
 
     val checkedState = rememberSaveable { mutableStateOf(false) }
     val configuration = LocalConfiguration.current
@@ -132,63 +134,65 @@ fun DetailsScreen(
 
                             }
 
-                            IconToggleButton(
-                                checked = checkedState.value,
-                                onCheckedChange = {fave ->
-                                    checkedState.value = !checkedState.value
-                                    if (jp != null) {
+
+                            if (favorite != null) {
+                                IconToggleButton(
+                                    checked = favorite,
+                                    onCheckedChange = {fave ->
+                                        //checkedState.value = fave
+                                        //favorite
                                         viewModel.setFavoriteJP(fave, jp)
+                                        Toast.makeText(context, if(fave) "Added to Favorites" else "Removed from Favorites",Toast.LENGTH_LONG).show()
+                                    },
+                                    modifier = Modifier.padding(10.dp)
+                                )
+                                {
+
+                                    val transition = updateTransition(favorite,
+                                        label = "Transition State"
+                                    )
+                                    val tint by transition.animateColor(label = "iconColor") { isChecked ->
+                                        // if toggle button is checked we are setting color as red.
+                                        // in else condition we are setting color as black
+                                        if (isChecked) Color.Red else Color.Blue
                                     }
 
-                                },
-                                modifier = Modifier.padding(10.dp)
-                            )
-                            {
-
-                                val transition = updateTransition(checkedState.value,
-                                    label = "Transition State"
-                                )
-                                val tint by transition.animateColor(label = "iconColor") { isChecked ->
-                                    // if toggle button is checked we are setting color as red.
-                                    // in else condition we are setting color as black
-                                    if (isChecked) Color.Red else Color.Blue
-                                }
-
-                                val size by transition.animateDp(
-                                    transitionSpec = {
-                                        // on below line we are specifying transition
-                                        if (false isTransitioningTo true) {
-                                            // on below line we are specifying key frames
-                                            keyframes {
-                                                // on below line we are specifying animation duration
-                                                durationMillis = 250
-                                                // on below line we are specifying animations.
-                                                30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
-                                                35.dp at 15 with FastOutLinearInEasing // for 15-75 ms
-                                                40.dp at 75 // ms
-                                                35.dp at 150 // ms
+                                    val size by transition.animateDp(
+                                        transitionSpec = {
+                                            // on below line we are specifying transition
+                                            if (false isTransitioningTo true) {
+                                                // on below line we are specifying key frames
+                                                keyframes {
+                                                    // on below line we are specifying animation duration
+                                                    durationMillis = 250
+                                                    // on below line we are specifying animations.
+                                                    30.dp at 0 with LinearOutSlowInEasing // for 0-15 ms
+                                                    35.dp at 15 with FastOutLinearInEasing // for 15-75 ms
+                                                    40.dp at 75 // ms
+                                                    35.dp at 150 // ms
+                                                }
+                                            } else {
+                                                spring(stiffness = Spring.StiffnessVeryLow)
                                             }
-                                        } else {
-                                            spring(stiffness = Spring.StiffnessVeryLow)
-                                        }
-                                    },
-                                    label = "Size"
-                                ) {
-                                    30.dp
+                                        },
+                                        label = "Size"
+                                    ) {
+                                        30.dp
+                                    }
+
+                                    Icon(
+                                        // on below line we are specifying icon for our image vector.
+                                        imageVector = if (favorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                                        contentDescription = "Icon",
+                                        // on below line we are specifying
+                                        // tint for our icon.
+                                        tint = tint,
+                                        // on below line we are specifying
+                                        // size for our icon.
+                                        modifier = Modifier.size(size)
+                                    )
+
                                 }
-
-                                Icon(
-                                    // on below line we are specifying icon for our image vector.
-                                    imageVector = if (checkedState.value) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
-                                    contentDescription = "Icon",
-                                    // on below line we are specifying
-                                    // tint for our icon.
-                                    tint = tint,
-                                    // on below line we are specifying
-                                    // size for our icon.
-                                    modifier = Modifier.size(size)
-                                )
-
                             }
 
 

@@ -11,7 +11,6 @@ fun towns(parish: String): Set<String> {
             val montegoBayList = listOf(
                 "Adelphi",
                 "Albion",
-                "Anchorage",
                 "Anchovy",
                 "Barnett Heights",
                 "Barnett view",
@@ -104,8 +103,6 @@ fun towns(parish: String): Set<String> {
                 "White House",
                 "White Sands",
                 "Wiltshire",
-
-
                 )
 
     val stCatherineList = listOf(

@@ -5,12 +5,16 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,7 +26,9 @@ import androidx.navigation.navArgument
 import com.buzzed.jpfinder.JPFinderTopBar
 import com.buzzed.jpfinder.R
 import com.buzzed.jpfinder.data.*
+import com.buzzed.jpfinder.loadInterstitial
 import com.buzzed.jpfinder.navigation.NavigationDestination
+import com.buzzed.jpfinder.showInterstitial
 import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 
 
@@ -58,6 +64,8 @@ fun ListScreen(
     val itemList = listViewModel.filterJpInCommunity(communityName)
     val context = LocalContext.current
 
+
+    showInterstitial(context) { }
 
     Scaffold(
         topBar = {
@@ -106,6 +114,8 @@ fun ListResults(
     modifier: Modifier = Modifier
 ) {
 
+    val context = LocalContext.current
+    val favorite = results?.isFavorited!!
     Column(
         modifier = Modifier.padding(top = 15.dp, bottom = 15.dp)
     ) {
@@ -135,12 +145,33 @@ fun ListResults(
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Text(
-                            text = "${results?.lastName}, ${results?.firstName}",
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            fontSize = 20.sp,
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                            modifier = modifier.padding(start = 25.dp)
+                        ) {
 
-                            )
+                            Text(
+                                text = "${results?.lastName}, ${results?.firstName}",
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                fontSize = 20.sp,
+
+                                )
+                        }
+                        Spacer(modifier.weight(.3f))
+
+                        Icon(
+                            // on below line we are specifying icon for our image vector.
+                            imageVector = if (favorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
+                            contentDescription = "Icon",
+                            // on below line we are specifying
+                            // tint for our icon.
+                            tint = if (favorite) Color.Red else Color.Blue,
+                            // on below line we are specifying
+                            // size for our icon.
+                            modifier = Modifier.size(50.dp)
+                                .padding(end = 25.dp)
+                        )
                     }
                     Divider(modifier = modifier.padding(16.dp))
 

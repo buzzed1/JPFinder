@@ -1,15 +1,21 @@
 package com.buzzed.jpfinder.ui.screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.buzzed.jpfinder.data.JP
 import com.buzzed.jpfinder.data.JPRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 
 class HomeViewModel(
     private val jpRepository: JPRepository,
     ) : ViewModel() {
 
+init {
+    getFavoriteJPs()
+}
 
     private var _uiState = MutableStateFlow(HomeUiState())
 
@@ -67,7 +73,23 @@ class HomeViewModel(
         }
     }
 
+    fun getFavoriteJPs(): List<JP> {
+        var list: List<JP> = listOf()
 
+        viewModelScope.launch(Dispatchers.IO) {
+            jpRepository.getAllJPStream()
+                .map {
+                   list = it.filter { jp ->
+                        jp.isFavorited
+                    }
+                    Log.d("get Favorite", "list: $list")
+                }
+        }
+
+
+
+        return list
+    }
 
 
     companion object {
@@ -83,5 +105,6 @@ data class HomeUiState(
     val selectedCommunity: String = "",
     val enabledCommunity: Boolean = false,
     val enabledButton: Boolean = false,
+    val favoriteList: List<JP> = listOf(),
 
     )

@@ -1,6 +1,9 @@
 package com.buzzed.jpfinder.ui.screen
 
 import android.util.Log
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,7 +26,6 @@ class DetailsScreenViewModel(
     val uiState: StateFlow<DetailUiState> = _uiState
 
     private var _oneJP = MutableStateFlow(OneJp())
-        private set
 
     private val oneJPstate: StateFlow<OneJp> = _oneJP.asStateFlow()
 
@@ -33,28 +35,20 @@ class DetailsScreenViewModel(
 
     val detailUiState: StateFlow<DetailUiState> = jpRepository.getAllJPStream().map {
         DetailUiState(it)}
-        .filterNotNull()
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
             initialValue = DetailUiState()
         )
 
-    private val favoriteState: StateFlow<FavoriteJP> = jpRepository.getFavoriteJPs()
-        .map {
-            FavoriteJP(it) }
-        .filterNotNull()
-        .stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(TIMEOUT_MILLIS),
-            initialValue = FavoriteJP()
-        )
 
 
 
-      private var jpFromId: JP? = JP(null,"Loading","Loading","Loading","Loading","Loading","Loading","Loading") //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
 
-      private val favoriteJPList = mutableListOf<JP>()
+
+    private var jpFromId: JP? = JP(null,"Loading","Loading","Loading","Loading","Loading","Loading","Loading") //= jpRepository.getJPStream(DetailsScreenDestination.jpId)
+
+    private val favoriteJPList = mutableListOf<JP>()
 
     private var favorites = mutableMapOf<JP,Boolean>()
 
@@ -87,36 +81,28 @@ class DetailsScreenViewModel(
     }
 
     fun setFavoriteJP(isFavorited: Boolean, jp: JP) {
-        val newList = mutableListOf<JP>()
+
         if (isFavorited) {
                 val newJP =  jp.copy(isFavorited = isFavorited)
                 viewModelScope.launch(Dispatchers.IO) {
                     jpRepository.updateJP(newJP)
                 }
-            newList.add(newJP)
+            filterJP()
             favorites[newJP] = isFavorited
             } else {
             val newJP =  jp.copy(isFavorited = isFavorited)
             viewModelScope.launch(Dispatchers.IO) {
                 jpRepository.updateJP(newJP)
             }
-            newList.remove(newJP)
+            filterJP()
             favorites[newJP] = isFavorited
         }
-        _favoriteJpState.update { favoriteJP ->
-            favoriteJP.copy(
-                jpList = newList
-            )
-         }
+
 
     }
 
 
-    fun getFavoriteJPs(): List<JP> {
-//        Log.d("get Favorite", "${favoriteState.value.jpList}")
-//        Log.d("get Favorite", "${_favoriteJpState.value.jpList}")
-        return favoriteState.value.jpList
-    }
+
 
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L

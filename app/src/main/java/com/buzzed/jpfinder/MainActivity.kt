@@ -16,7 +16,9 @@ import com.buzzed.jpfinder.ui.theme.JPFinderTheme
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.interstitial.InterstitialAd
+import java.util.*
 
 
 class MainActivity : ComponentActivity() {
@@ -33,14 +35,20 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     MobileAds.initialize(this){}
+
                     loadInterstitial(this)
 
+                    RequestConfiguration.Builder().setTestDeviceIds(listOf("27662B4A4AE98842B2D011BC4F205666"))
 
                     val windowSize = calculateWindowSizeClass(this)
                     JPFinderApp(windowSize = windowSize.widthSizeClass)
                 }
             }
         }
+    }
+    override fun onDestroy() {
+        removeInterstitial()
+        super.onDestroy()
     }
 }
 
